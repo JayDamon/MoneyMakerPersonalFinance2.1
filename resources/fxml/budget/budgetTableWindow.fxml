@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<GridPane fx:id="primaryPane" prefHeight="294.0" prefWidth="3000.0" xmlns="http://javafx.com/javafx/8"
+          xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10" left="10" top="10"/>
+    </padding>
+    <stylesheets>
+        <URL value="@../../css/CenterPanelButtonStyle.css"/>
+    </stylesheets>
+    <Label style="-fx-font: NORMAL 25 Tahoma;" text="Budget" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="0"
+           GridPane.columnSpan="2" GridPane.rowIndex="0"/>
+    <HBox style="-fx-background-color: white;" BorderPane.alignment="CENTER" GridPane.columnIndex="0"
+          GridPane.rowIndex="1">
+        <Button fx:id="buttonNew" maxWidth="1.7976931348623157E308" text="New" wrapText="True"/>
+        <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" text="Delete" wrapText="True"/>
+        <Button fx:id="buttonUpdate" maxWidth="1.7976931348623157E308" text="Update" wrapText="True"/>
+        <Button fx:id="btnUncategorizedTransactions" maxWidth="1.7976931348623157E308"
+                text="Uncategorized Transactions" wrapText="True"/>
+    </HBox>
+    <TableView fx:id="primaryTable" minWidth="587.0" prefHeight="2000" BorderPane.alignment="TOP_LEFT"
+               GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <columns>
+            <TableColumn minWidth="-1.0" prefWidth="170.0" text="Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Start Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="startDate"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="-1.0" prefWidth="100.0" text="End Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="endDate"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Frequency">
+                <cellValueFactory>
+                    <PropertyValueFactory property="frequency"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colBudAmount" minWidth="-1.0" prefWidth="100.0" text="Amount">
+                <cellValueFactory>
+                    <PropertyValueFactory property="amount"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colUncategorizedTransactions" minWidth="-1.0" prefWidth="150.0" text="Uncategorized">
+                <cellValueFactory>
+                    <PropertyValueFactory property="uncategorizedTransactions"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+            </FXCollections>
+        </items>
+    </TableView>
+    <VBox fx:id="vboxSelectedCell" prefWidth="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    </VBox>
+    <TableView fx:id="tblTranCat" minWidth="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <columns>
+            <TableColumn minWidth="-1.0" prefWidth="200.0" text="Transaction Category">
+                <cellValueFactory>
+                    <PropertyValueFactory property="transactionCategory"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+</GridPane>
