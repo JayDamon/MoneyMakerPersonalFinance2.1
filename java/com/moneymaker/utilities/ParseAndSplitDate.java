@@ -28,7 +28,7 @@ public class ParseAndSplitDate {
         return cal;
     }
 
-    public ParseAndSplitDate(String inputDate) {
+    ParseAndSplitDate(String inputDate) {
         int yearPosition;
 
         String[] dateSplit = getSplitDate(inputDate);
@@ -141,7 +141,7 @@ public class ParseAndSplitDate {
                     break;
             }
         }
-        cal.set(formattedYear, formattedMonth - 1, formattedDay);
+        cal = DateUtility.setCalDate(cal, formattedYear, formattedMonth - 1, formattedDay);
         return cal;
     }
 
@@ -182,7 +182,7 @@ public class ParseAndSplitDate {
             }
 
         }
-        cal.set(Calendar.getInstance().get(Calendar.YEAR),formattedMonth, formattedDay);
+        cal = DateUtility.setCalDate(cal, Calendar.getInstance().get(Calendar.YEAR),formattedMonth, formattedDay);
         return cal;
     }
 
@@ -199,7 +199,7 @@ public class ParseAndSplitDate {
         return yearPosition;
     }
 
-    public int getFormattedYear() {
+    int getFormattedYear() {
         return formattedYear;
     }
 
@@ -207,7 +207,7 @@ public class ParseAndSplitDate {
         this.formattedYear = formattedYear;
     }
 
-    public int getFormattedMonth() {
+    int getFormattedMonth() {
         return formattedMonth;
     }
 
@@ -215,7 +215,7 @@ public class ParseAndSplitDate {
         this.formattedMonth = formattedMonth;
     }
 
-    public int getFormattedDay() {
+    int getFormattedDay() {
         return formattedDay;
     }
 

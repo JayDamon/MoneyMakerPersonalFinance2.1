@@ -46,9 +46,7 @@ public class LoginWindowController implements Initializable {
     private Button testUser;
 
     public void initialize(URL url, ResourceBundle rs) {
-        testUser.setOnAction(event -> {
-            testUserLogin();
-        });
+        testUser.setOnAction(event -> testUserLogin());
         passwordFieldLogin.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 passwordFieldLogin.setStyle("-fx-control-inner-background: white");
@@ -104,7 +102,7 @@ public class LoginWindowController implements Initializable {
             if (userExists) {
                 if (checkBoxSaveCredentials.isSelected()) {
                     usernameData.setUsername(userName);
-                    usernameData.setSaveCredentials(true);
+                    usernameData.setSaveCredentials();
                     usernameData.clearPassword();
                 } else {
                     usernameData.clearUsername();

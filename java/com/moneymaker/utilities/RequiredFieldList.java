@@ -2,7 +2,6 @@ package com.moneymaker.utilities;
 
 import javafx.scene.control.*;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +25,8 @@ public class RequiredFieldList {
                     Label l = (Label) c;
                     setValueListener(l);
                 } else if (c.getClass().equals(ComboBox.class)) {
-                    ComboBox cmb = (ComboBox)c;
+                    @SuppressWarnings("unchecked")
+                    ComboBox<Object> cmb = (ComboBox<Object>)c;
                     setValueListener(cmb);
                 } else if (c.getClass().equals(TextField.class)) {
                     TextField txt = (TextField)c;
@@ -55,7 +55,7 @@ public class RequiredFieldList {
         });
     }
 
-    private void setValueListener(ComboBox c) {
+    private void setValueListener(ComboBox<Object> c) {
         c.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (c.getItems().contains(newValue)) {
                 c.setStyle(whiteBackgroundStyle);

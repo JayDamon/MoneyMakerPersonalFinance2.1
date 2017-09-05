@@ -11,8 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.sql.SQLException;
-
 /**
  * Created by Jay Damon on 8/28/2016.
  */
@@ -54,14 +52,10 @@ public class DuplicateTransactionWindowController {
 
             newHBox.addEventHandler(
                     MouseEvent.MOUSE_ENTERED,
-                    event -> {
-                        newHBox.setStyle("-fx-border-color: #3399ff;");
-                    });
+                    event -> newHBox.setStyle("-fx-border-color: #3399ff;"));
             newHBox.addEventHandler(
                     MouseEvent.MOUSE_EXITED,
-                    event -> {
-                        newHBox.setStyle("-fx-border-color: TRANSPARENT;");
-                    });
+                    event -> newHBox.setStyle("-fx-border-color: TRANSPARENT;"));
         }
     }
 

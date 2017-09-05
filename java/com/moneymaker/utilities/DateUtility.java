@@ -14,7 +14,6 @@ public class DateUtility {
 
     public static final String CALENDAR_DISPLAY_DATE = "dd-MMM-yy";
     public static final String SQL_INPUT_DATE = "yyyy-MM-dd";
-    public static SimpleDateFormat formatCalendarDisplay = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
 
 //    public static String cleanDate(String date) {
 //        DateTimeFormatter parser = DateTimeFormatter.ofPattern("MMM").withLocale(Locale.ENGLISH);
@@ -112,29 +111,29 @@ public class DateUtility {
         }
     }
 
-    public static String formatDate(String date)  {
-        Date initDate = null;
-        try {
-            initDate = new SimpleDateFormat("MM/dd/yyyy").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        return formatter.format(initDate);
-    }
-
-    public static String formatFromTableDate(String date) {
-        Date initDate = null;
-        try {
-            initDate = new SimpleDateFormat("dd-MMM-yy").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-        return formatter.format(initDate);
-    }
+//    public static String formatDate(String date)  {
+//        Date initDate = null;
+//        try {
+//            initDate = new SimpleDateFormat("MM/dd/yyyy").parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        return formatter.format(initDate);
+//    }
+//
+//    public static String formatFromTableDate(String date) {
+//        Date initDate = null;
+//        try {
+//            initDate = new SimpleDateFormat("dd-MMM-yy").parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        return formatter.format(initDate);
+//    }
 
     public static Calendar parseStringCalendar(String date) {
 
@@ -155,26 +154,6 @@ public class DateUtility {
         }
         return convertDate;
     }
-
-    public static java.sql.Date convertNATToDateForSQL(String date) {
-        ParseAndSplitDate splitDate = new ParseAndSplitDate(date);
-        Calendar newDate = Calendar.getInstance();
-        newDate.set(splitDate.getFormattedYear(), splitDate.getFormattedMonth(), splitDate.getFormattedDay());
-        return new java.sql.Date(newDate.getTimeInMillis());
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        if (date != null && !date.equals("")) {
-//            try {
-//                java.util.Date parsed = format.parse(date);
-//                return new java.sql.Date(parsed.getTime());
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//                return null;
-//            }
-//        } else {
-//            return null;
-//        }
-    }
-
     public static Calendar getWeekDayStartDate(Calendar startDate, String occurrence) {
         switch (occurrence) {
             case "Monday":
@@ -202,49 +181,6 @@ public class DateUtility {
         return startDate;
     }
 
-    public static Calendar setMonth(Calendar date , int month) {
-        switch (month) {
-            case 0:
-                date.set(Calendar.MONTH, Calendar.JANUARY);
-                return date;
-            case 1:
-                date.set(Calendar.MONTH, Calendar.FEBRUARY);
-                return date;
-            case 2:
-                date.set(Calendar.MONTH, Calendar.MARCH);
-                return date;
-            case 3:
-                date.set(Calendar.MONTH, Calendar.APRIL);
-                return date;
-            case 4:
-                date.set(Calendar.MONTH, Calendar.MAY);
-                return date;
-            case 5:
-                date.set(Calendar.MONTH, Calendar.JUNE);
-                return date;
-            case 6:
-                date.set(Calendar.MONTH, Calendar.JULY);
-                return date;
-            case 7:
-                date.set(Calendar.MONTH, Calendar.AUGUST);
-                return date;
-            case 8:
-                date.set(Calendar.MONTH, Calendar.SEPTEMBER);
-                return date;
-            case 9:
-                date.set(Calendar.MONTH, Calendar.OCTOBER);
-                return date;
-            case 10:
-                date.set(Calendar.MONTH, Calendar.NOVEMBER);
-                return date;
-            case 11:
-                date.set(Calendar.MONTH, Calendar.DECEMBER);
-                return date;
-            default:
-                return null;
-        }
-    }
-
     public static Calendar getCalBeginningOfDay() {
         Calendar cal = Calendar.getInstance();
         setCalBeginningOfDay(cal);
@@ -256,6 +192,13 @@ public class DateUtility {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
+    }
+
+    public static Calendar setCalDate(Calendar cal, int year, int month, int day) {
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        return cal;
     }
 
 //    public static Calendar getCalBeginningOfDay() {

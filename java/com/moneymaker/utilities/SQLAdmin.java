@@ -69,7 +69,7 @@ public class SQLAdmin {
         Connection conn = ConnectionManagerAdmin.getInstance().getConnection();
         final String sql = "CALL money_maker_stored_procedures.createuser(?,?,?,?,?,?)";
         try (
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(sql)
                 ) {
             stmt.setString(1, username);
             stmt.setString(2, password);

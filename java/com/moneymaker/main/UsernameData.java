@@ -11,11 +11,11 @@ public class UsernameData {
 
     private static Preferences preferences = Preferences.userNodeForPackage(UsernameData.class);
 
-    public void setUsername(String username) {
+    void setUsername(String username) {
         preferences.put("db_username", username);
     }
 
-    public void setPassword(String password) {
+    void setPassword(String password) {
         preferences.put("db_password", password);
     }
 
@@ -24,33 +24,33 @@ public class UsernameData {
         preferences.put("db_sessionPassword", sessionPassword);
     }
 
-    public void clearUsername() {
+    void clearUsername() {
         preferences.remove("db_username");
     }
 
-    public void clearPassword() {
+    void clearPassword() {
         preferences.remove("db_password");
     }
 
-    public void clearSessionCredentials() {
-        preferences.remove("db_sessionUsername");
-        preferences.remove("db_sessionPassword");
-    }
+//    public void clearSessionCredentials() {
+//        preferences.remove("db_sessionUsername");
+//        preferences.remove("db_sessionPassword");
+//    }
+//
+//    public void clearAutoLogin() {
+//        preferences.remove("db_autoLogin");
+//    }
+//
+//    public void clearSaveCredentials() {
+//        preferences.remove("db_saveCredentials");
+//    }
 
-    public void clearAutoLogin() {
-        preferences.remove("db_autoLogin");
-    }
-
-    public void clearSaveCredentials() {
-        preferences.remove("db_saveCredentials");
-    }
-
-    public void setAutoLogin(boolean autoLogin) {
+    void setAutoLogin(boolean autoLogin) {
         preferences.put("db_autoLogin", String.valueOf(autoLogin));
     }
 
-    public void setSaveCredentials(boolean saveCredentials) { preferences.put("db_saveCredentials",
-            String.valueOf(saveCredentials)); }
+    void setSaveCredentials() { preferences.put("db_saveCredentials",
+            String.valueOf(true)); }
 
     public String getUsername() {
         return preferences.get("db_username", null);
@@ -72,15 +72,14 @@ public class UsernameData {
         return preferences.get("db_autoLogin", null);
     }
 
-    public String getSaveCredentials() {
+    String getSaveCredentials() {
         return preferences.get("db_saveCredentials", null);
     }
 
     public static String getUserSchema() {
-        SQLAdmin sqlAdmin = new SQLAdmin();
         String userName = preferences.get("db_sessionUsername", null);
         String password = preferences.get("db_sessionPassword", null);
-        return sqlAdmin.getUserSchema(userName, password);
+        return SQLAdmin.getUserSchema(userName, password);
     }
 
 }

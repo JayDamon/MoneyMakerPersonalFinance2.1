@@ -11,10 +11,6 @@ public class BudgetGraph {
     private final SimpleStringProperty plannedAmount = new SimpleStringProperty("");
     private final SimpleStringProperty actualAmount = new SimpleStringProperty("");
 
-    public BudgetGraph() {
-        this("","","");
-    }
-
     public BudgetGraph(String budget, String plannedAmount, String actualAmount) {
         setBudget(budget);
         setPlannedAmount(plannedAmount);
@@ -33,7 +29,7 @@ public class BudgetGraph {
         return plannedAmount.get();
     }
 
-    public void setPlannedAmount(String plannedAmount) {
+    private void setPlannedAmount(String plannedAmount) {
         this.plannedAmount.set(plannedAmount);
     }
 
@@ -41,7 +37,7 @@ public class BudgetGraph {
         return actualAmount.get();
     }
 
-    public void setActualAmount(String actualAmount) {
+    private void setActualAmount(String actualAmount) {
         this.actualAmount.set(actualAmount);
     }
 }

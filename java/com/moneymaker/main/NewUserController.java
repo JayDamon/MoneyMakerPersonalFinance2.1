@@ -166,7 +166,7 @@ public class NewUserController implements Initializable {
                     }
 
                     if (checkBoxSaveCredentials.isSelected()) {
-                        usernameData.setSaveCredentials(true);
+                        usernameData.setSaveCredentials();
                         usernameData.setUsername(usernameInput);
                         usernameData.clearPassword();
                     } else {

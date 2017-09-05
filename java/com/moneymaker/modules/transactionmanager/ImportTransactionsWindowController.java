@@ -53,7 +53,7 @@ public class ImportTransactionsWindowController implements Initializable {
     private ListView<String> listHeaders;
 
     @FXML
-    private Button btnImportTransactions, btnExit;
+    private Button btnExit;
 
     private final FileChooser fileChooser = new FileChooser();
 
@@ -89,7 +89,7 @@ public class ImportTransactionsWindowController implements Initializable {
             boolean success = false;
             if (db.hasFiles()) {
                 success = true;
-                String filePath = null;
+                String filePath;
                 if(db.getFiles().size() == 1) {
                     for(File file : db.getFiles()) {
                         filePath = file.getAbsolutePath();
@@ -305,11 +305,11 @@ public class ImportTransactionsWindowController implements Initializable {
         stage.close();
     }
 
-    public void fileText(File file) {
+    void fileText(File file) {
         txtAreaFilePath.setText(file.toString());
     }
 
-    public void setTextBoxes(String tranDate, String tranDesc, String tranDebit, String tranCredit, String tranAcc) {
+    void setTextBoxes(String tranDate, String tranDesc, String tranDebit, String tranCredit, String tranAcc) {
         txtTransactionDate.setText(tranDate);
         txtDescription.setText(tranDesc);
         txtDebit.setText(tranDebit);
@@ -317,7 +317,7 @@ public class ImportTransactionsWindowController implements Initializable {
         cmbAccount.setValue(tranAcc);
     }
 
-    public void fillListBox(ObservableList<String> list) {
+    void fillListBox(ObservableList<String> list) {
         listHeaders.getItems().clear();
         listHeaders.setItems(list);
     }

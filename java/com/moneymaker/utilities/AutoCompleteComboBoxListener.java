@@ -1,8 +1,6 @@
 package com.moneymaker.utilities;
 
 import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
@@ -10,7 +8,6 @@ import javafx.scene.control.IndexRange;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Created by Jay Damon on 8/2/2016.
@@ -29,26 +26,15 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
         this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
 
         // add a focus listener such that if not in focus, reset the filtered typed keys
-        this.comboBox.getEditor().focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    // in focus
-                }
-                else {
-                    lastLength = 0;
-                    sb.delete(0, sb.length());
-                    selectClosestResultBasedOnTextFieldValue(false, false);
-                }
+        this.comboBox.getEditor().focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                lastLength = 0;
+                sb.delete(0, sb.length());
+                selectClosestResultBasedOnTextFieldValue(false);
             }
         });
 
-        this.comboBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                selectClosestResultBasedOnTextFieldValue(true, true);
-            }
-        });
+        this.comboBox.setOnMouseClicked(event -> selectClosestResultBasedOnTextFieldValue(true));
     }
 
     @Override
@@ -72,15 +58,16 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
         // remove selected string index until end so only unselected text will be recorded
         try {
             sb.delete(ir.getStart(), sb.length());
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ObservableList items = comboBox.getItems();
-        for (int i=0; i<items.size(); i++) {
-            if (items.get(i).toString().toLowerCase().startsWith(comboBox.getEditor().getText().toLowerCase())
-                    )
-            {
+        for (Object item : items) {
+            if (item.toString().toLowerCase().startsWith(comboBox.getEditor().getText().toLowerCase())
+                    ) {
                 try {
-                    comboBox.getEditor().setText(sb.toString() + items.get(i).toString().substring(sb.toString().length()));
+                    comboBox.getEditor().setText(sb.toString() + item.toString().substring(sb.toString().length()));
                 } catch (Exception e) {
                     comboBox.getEditor().setText(sb.toString());
                 }
@@ -100,7 +87,7 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
      *  inFocus - true if combobox has focus. If not, programmatically press enter key to add new entry to list.
      *
      */
-    private void selectClosestResultBasedOnTextFieldValue(boolean affect, boolean inFocus) {
+    private void selectClosestResultBasedOnTextFieldValue(boolean affect) {
         ObservableList items = AutoCompleteComboBoxListener.this.comboBox.getItems();
         boolean found = false;
         for (int i=0; i<items.size(); i++) {
@@ -111,7 +98,9 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
                     lv.scrollTo(lv.getSelectionModel().getSelectedIndex());
                     found = true;
                     break;
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

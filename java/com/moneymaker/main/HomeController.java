@@ -41,7 +41,6 @@ public class HomeController implements Initializable {
     @FXML
 //    private BarChart barChartGoals;
 
-    private SQLMethods sqlMethods = new SQLMethods();
 
     public void initialize(URL url, ResourceBundle rs) {
         Calendar today = Calendar.getInstance();
@@ -86,7 +85,7 @@ public class HomeController implements Initializable {
 
         listViewYears.setOnMouseClicked(event -> fillBudgetGraph(null, 0));
 
-        fillGoalGraph(null, 0);
+        fillGoalGraph();
 
     }
 
@@ -155,13 +154,13 @@ public class HomeController implements Initializable {
 
         int selectedMonth = calendarSelectedMonth.get(Calendar.MONTH);
 
-        calendarStartDate.set(selectedYear, selectedMonth, 1);
+        calendarStartDate = DateUtility.setCalDate(calendarStartDate, selectedYear, selectedMonth, 1);
         int lastDayOfMonth = calendarStartDate.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendarEndDate.set(selectedYear, selectedMonth, lastDayOfMonth);
+        calendarEndDate = DateUtility.setCalDate(calendarEndDate, selectedYear, selectedMonth, lastDayOfMonth);
         SimpleDateFormat formatter = new SimpleDateFormat(DateUtility.SQL_INPUT_DATE);
         String stringStartDate = formatter.format(calendarStartDate.getTime());
         String stringEndDate = formatter.format(calendarEndDate.getTime());
-        ObservableList<BudgetGraph> budgetGraph = sqlMethods.graphBudgets(stringStartDate, stringEndDate);
+        ObservableList<BudgetGraph> budgetGraph = SQLMethods.graphBudgets(stringStartDate, stringEndDate);
         xAxis.setLabel("Dollars");
         yAxis.setLabel("Category");
         XYChart.Series<Number, String> series1 = new XYChart.Series<>();
@@ -283,10 +282,13 @@ public class HomeController implements Initializable {
         barChartActual.setLegendVisible(false);
         barChartActual.setAnimated(false);
         barChartActual.setStyle("-fx-background-color: transparent;");
-        barChartActual.getStylesheets().setAll(getClass().getClassLoader().getResource("css/OverlayBarChartStyle.css").toExternalForm());
+
+        URL barOverlay = getClass().getClassLoader().getResource("css/OverlayBarChartStyle.css");
+        if (barOverlay != null) barChartActual.getStylesheets().setAll(barOverlay.toExternalForm());
 
         barChartPlanned.setTitle("");
-        barChartPlanned.getStylesheets().setAll(getClass().getClassLoader().getResource("css/BackgroundBarChartStyle.css").toExternalForm());
+        URL barBackground = getClass().getClassLoader().getResource("css/BackgroundBarChartStyle.css");
+        if (barBackground != null) barChartPlanned.getStylesheets().setAll(barBackground.toExternalForm());
         barChartPlanned.setAnimated(false);
         barChartPlanned.setLegendVisible(false);
         barChartPlanned.setAlternativeColumnFillVisible(false);
@@ -304,7 +306,7 @@ public class HomeController implements Initializable {
         return lower <= x && x <= upper;
     }
 
-    private void fillGoalGraph(String stringSelectedMonth, int selectedYear) {
+    private void fillGoalGraph() {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
 
@@ -369,8 +371,10 @@ public class HomeController implements Initializable {
         barChartPlanned.setHorizontalGridLinesVisible(false);
         barChartPlanned.setVerticalGridLinesVisible(false);
 
-        barChartPlanned.getStylesheets().setAll(getClass().getClassLoader().getResource("css/GoalGraphStyleOverlay.css").toExternalForm());
-        barChartActual.getStylesheets().setAll(getClass().getClassLoader().getResource("css/GoalGraphStyleBackground.css").toExternalForm());
+        URL graphOverlay = getClass().getClassLoader().getResource("css/GoalGraphStyleOverlay.css");
+        URL graphBackground = getClass().getClassLoader().getResource("css/GoalGraphStyleBackground.css");
+        if (graphOverlay != null) barChartPlanned.getStylesheets().setAll(graphOverlay.toExternalForm());
+        if (graphBackground != null) barChartActual.getStylesheets().setAll(graphBackground.toExternalForm());
 
         stackPaneGoals.getChildren().addAll(barChartPlanned, barChartActual);
     }
@@ -420,11 +424,11 @@ public class HomeController implements Initializable {
             this.tickUnit = tickUnit;
         }
 
-        public int getMaxValue() {
+        int getMaxValue() {
             return maxValue;
         }
 
-        public double getTickUnit() {
+        double getTickUnit() {
             return tickUnit;
         }
     }

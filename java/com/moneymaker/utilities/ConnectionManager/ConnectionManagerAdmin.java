@@ -27,7 +27,7 @@ public class ConnectionManagerAdmin {
         return instance;
     }
 
-    private boolean openConnection(String userName, String password) {
+    private boolean openConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
@@ -41,7 +41,7 @@ public class ConnectionManagerAdmin {
     public Connection getConnection()
     {
         if (conn == null) {
-            if (openConnection(USERNAME, PASSWORD)) {
+            if (openConnection()) {
                 return conn;
             } else {
                 return null;
@@ -55,7 +55,7 @@ public class ConnectionManagerAdmin {
             conn.close();
             conn = null;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
