@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Objects;
 
 /**
  * Created by Jay Damon on 8/25/2017.
@@ -26,9 +25,9 @@ public class CashFlowBean extends Bean {
     private BigDecimal bdProjected, bdActual, bdCOHStarting, bdCOHActual, bdCOHCurrent;
     private Calendar calDate;
 
-    public CashFlowBean(FinanceType type, String account, String budget, Calendar date, String category,
-                    BigDecimal projected, BigDecimal actual, BigDecimal cohStarting,
-                        BigDecimal cohActual, BigDecimal cohCurrent) {
+    CashFlowBean(FinanceType type, String account, String budget, Calendar date, String category,
+                 BigDecimal projected, BigDecimal actual, BigDecimal cohStarting,
+                 BigDecimal cohActual, BigDecimal cohCurrent) {
         super(type);
         setAccount(account);
         setBudget(budget);
@@ -41,7 +40,7 @@ public class CashFlowBean extends Bean {
         setCohCurrent(cohCurrent);
     }
 
-    public CashFlowBean(FinanceType type, String budget, Calendar date, BigDecimal projected, BigDecimal actual) {
+    CashFlowBean(FinanceType type, String budget, Calendar date, BigDecimal projected, BigDecimal actual) {
         super(type);
         setBudget(budget);
         setDate(date);
@@ -49,7 +48,7 @@ public class CashFlowBean extends Bean {
         setActual(actual);
     }
 
-    public CashFlowBean(FinanceType type, String account, String budget, Calendar date, String category, BigDecimal projected, BigDecimal actual) {
+    CashFlowBean(FinanceType type, String account, String budget, Calendar date, String category, BigDecimal projected, BigDecimal actual) {
         super(type);
         setAccount(account);
         setBudget(budget);

@@ -7,10 +7,10 @@ public enum FinanceType {
     TRANSACTION,
     ACCOUNT,
     BUDGET,
-    CASHFLOW,
+    CASH_FLOW,
     GOAL,
     TRANSFER,
-    RECURRINGTRANSACTION;
+    RECURRING_TRANSACTION;
     public String getTableName() {
         switch (this) {
             case TRANSACTION:
@@ -19,13 +19,13 @@ public enum FinanceType {
                 return "accounts";
             case BUDGET:
                 return "budget";
-            case CASHFLOW:
+            case CASH_FLOW:
                 return "";
             case GOAL:
                 return "goals";
             case TRANSFER:
                 return "transfers";
-            case RECURRINGTRANSACTION:
+            case RECURRING_TRANSACTION:
                 return "recurring_transactions";
             default:
                 return null;
@@ -40,13 +40,13 @@ public enum FinanceType {
                 return "";
             case BUDGET:
                 return "";
-            case CASHFLOW:
+            case CASH_FLOW:
                 return "";
             case GOAL:
                 return "";
             case TRANSFER: //Needed for "BudgetWindowController" and now more
                 return "Transfer/Payment";
-            case RECURRINGTRANSACTION:
+            case RECURRING_TRANSACTION:
                 return "";
             default:
                 return null;

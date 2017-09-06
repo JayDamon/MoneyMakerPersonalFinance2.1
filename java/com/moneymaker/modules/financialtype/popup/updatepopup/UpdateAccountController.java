@@ -3,19 +3,15 @@ package com.moneymaker.modules.financialtype.popup.updatepopup;
 import com.moneymaker.modules.financialtype.Account;
 import com.moneymaker.modules.financialtype.list.AccountTypeList;
 import com.moneymaker.modules.financialtype.popup.UpdatePopupController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
- * Created for MoneyMaker by jaynd on 2/22/2016.
+ * Created for MoneyMaker by Jay Damon on 2/22/2016.
  */
 public class UpdateAccountController extends UpdatePopupController<Account> {
 

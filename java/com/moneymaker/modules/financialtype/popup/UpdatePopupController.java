@@ -2,11 +2,7 @@ package com.moneymaker.modules.financialtype.popup;
 
 import com.moneymaker.utilities.gui.PopupController;
 import com.moneymaker.modules.financialtype.Bean;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Created by Jay Damon on 7/24/2017.

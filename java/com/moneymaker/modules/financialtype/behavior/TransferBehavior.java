@@ -24,8 +24,8 @@ public class TransferBehavior extends FinancialTypeBehavior<Transfer> {
     public void update() {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
-                PreparedStatement stmt = prepareStatement(conn);
-                ) {
+                PreparedStatement stmt = prepareStatement(conn)
+        ) {
             stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,8 +49,8 @@ public class TransferBehavior extends FinancialTypeBehavior<Transfer> {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareAddStatement(conn);
-                ResultSet rs = stmt.executeQuery();
-                ) {
+                ResultSet rs = stmt.executeQuery()
+        ) {
             if (rs.next()) {
                 this.bean.setId(rs.getInt("ID"));
                 return true;

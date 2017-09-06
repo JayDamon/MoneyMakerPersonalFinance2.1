@@ -20,13 +20,14 @@ import java.util.ResourceBundle;
  */
 public abstract class PopupController implements Initializable {
 
-    protected String whiteBackgroundStyle = "-fx-control-inner-background: white";
+    protected static final String FX_CONTROL_INNER_BACKGROUND_WHITE = "-fx-control-inner-background: white";
 
     @FXML
     protected Pane primaryPane;
 
     @FXML
-    protected Button buttonConfirm, buttonExit;
+    private final Button buttonConfirm = new Button();
+    public final Button buttonExit = new Button();
 
     private RequiredFieldList requiredFieldList;
 

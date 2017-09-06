@@ -2,20 +2,18 @@ package com.moneymaker.modules.financialtype.list;
 
 import com.moneymaker.main.UsernameData;
 import com.moneymaker.utilities.ConnectionManager.ConnectionManagerUser;
-import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Jay Damon on 8/20/2017.
  */
 public class GoalTypeList {
-    private static ArrayList<String> goalTypes = new ArrayList<>();
+    private static final ArrayList<String> GOAL_TYPES = new ArrayList<>();
     private boolean listActive = false;
     private static GoalTypeList instance = null;
 
@@ -41,10 +39,10 @@ public class GoalTypeList {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareCreateStatement(conn);
-                ResultSet rs = stmt.executeQuery();
-                ) {
+                ResultSet rs = stmt.executeQuery()
+        ) {
             while (rs.next()) {
-                goalTypes.add(rs.getString("goalTypeName"));
+                GOAL_TYPES.add(rs.getString("goalTypeName"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,6 +57,6 @@ public class GoalTypeList {
     }
 
     public ArrayList<String> getGoalTypes() {
-        return goalTypes;
+        return GOAL_TYPES;
     }
 }

@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Created for MoneyMaker by jaynd on 3/28/2016.
+ * Created for MoneyMaker by Jay Damon on 3/28/2016.
  */
 public class BudgetController extends FinancialTypeController<Budget> {
 
@@ -49,9 +49,7 @@ public class BudgetController extends FinancialTypeController<Budget> {
                 data.addAll(transactionCategories.stream().map(TransactionCategory::new).collect(Collectors.toList()));
             }
         });
-        btnUncategorizedTransactions.setOnAction(event -> {
-            showUncategorizedTransactions();
-        });
+        btnUncategorizedTransactions.setOnAction(event -> showUncategorizedTransactions());
     }
 
     @Override
@@ -76,7 +74,7 @@ public class BudgetController extends FinancialTypeController<Budget> {
         int selectedIndex = primaryTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex != -1) {
             String budgetName = primaryTable.getSelectionModel().getSelectedItem().getName();
-            ObservableList<Transaction> t = TransactionList.getInstance().activateList().getUncateogrizedTransactions(budgetName);
+            ObservableList<Transaction> t = TransactionList.getInstance().activateList().getUncategorizedTransactions(budgetName);
                 if (t != null) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/transactions/transactions/transactionCategoryWindow.fxml"));

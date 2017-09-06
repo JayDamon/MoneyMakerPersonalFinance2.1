@@ -12,7 +12,7 @@ import java.util.Calendar;
  */
 
 public class NewTransferController extends SetTransferValueController {
-    private TransferList list = TransferList.getInstance().activateList();
+    private final TransferList list = TransferList.getInstance().activateList();
     @Override
     protected void confirmOperation() {
         //Super class checks to see if the required fields are filled in before allowing this operation to be performed

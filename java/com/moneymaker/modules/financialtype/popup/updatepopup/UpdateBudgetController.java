@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created for MoneyMaker by jaynd on 6/27/2016.
+ * Created for MoneyMaker by Jay Damon on 6/27/2016.
  */
 public class UpdateBudgetController extends UpdatePopupController<Budget> {
 
@@ -39,7 +39,8 @@ public class UpdateBudgetController extends UpdatePopupController<Budget> {
     }
 
     private void fillFrequency() {
-        ObservableList<String> freqList = FXCollections.observableList(SQLMethods.listFrequency());
+        ArrayList<String> freqArrList = SQLMethods.listFrequency();
+        ObservableList<String> freqList = freqArrList != null ? FXCollections.observableList(freqArrList) : null;
         cmbFrequency.getItems().clear();
         cmbFrequency.setItems(freqList);
     }

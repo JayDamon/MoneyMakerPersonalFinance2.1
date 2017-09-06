@@ -13,17 +13,15 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private UsernameData usernameData = new UsernameData();
-
     @Override
     public void start(Stage stage) throws Exception{
-//        usernameData.setCredentials("test", "test");
-//        usernameData.clearCredentials();
-//        usernameData.clearAutoLogin();
-        if (usernameData.getAutoLogin() == null || usernameData.getUsername() == null || usernameData.getPassword() == null) {
+//        USERNAME_DATA.setCredentials("test", "test");
+//        USERNAME_DATA.clearCredentials();
+//        USERNAME_DATA.clearAutoLogin();
+        if (UsernameData.getAutoLogin() == null || UsernameData.getUsername() == null || UsernameData.getPassword() == null) {
             openLoginWindow();
         } else {
-            usernameData.setSessionCredentials(usernameData.getUsername(),usernameData.getPassword());
+            UsernameData.setSessionCredentials(UsernameData.getUsername(), UsernameData.getPassword());
             openMainWindow();
         }
     }
@@ -53,7 +51,7 @@ public class Main extends Application {
             Scene scene = new Scene(primaryStage);
             stage.setScene(scene);
             MainWindowController mainWindow = loader.getController();
-            mainWindow.setUserName(usernameData.getUsername());
+            mainWindow.setUserName(UsernameData.getUsername());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

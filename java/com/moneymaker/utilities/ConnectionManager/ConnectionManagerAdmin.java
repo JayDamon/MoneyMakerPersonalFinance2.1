@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Created by jaynd on 2/3/2016.
+ * Created by Jay Damon on 2/3/2016.
  */
 public class ConnectionManagerAdmin {
     private static ConnectionManagerAdmin instance = null;

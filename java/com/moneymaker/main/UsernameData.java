@@ -9,76 +9,76 @@ import java.util.prefs.Preferences;
  */
 public class UsernameData {
 
-    private static Preferences preferences = Preferences.userNodeForPackage(UsernameData.class);
+    private static final Preferences PREFERENCES = Preferences.userNodeForPackage(UsernameData.class);
 
-    void setUsername(String username) {
-        preferences.put("db_username", username);
+    static void setUsername(String username) {
+        PREFERENCES.put("db_username", username);
     }
 
-    void setPassword(String password) {
-        preferences.put("db_password", password);
+    static void setPassword(String password) {
+        PREFERENCES.put("db_password", password);
     }
 
-    public void setSessionCredentials(String sessionUserName, String sessionPassword) {
-        preferences.put("db_sessionUsername", sessionUserName);
-        preferences.put("db_sessionPassword", sessionPassword);
+    public static void setSessionCredentials(String sessionUserName, String sessionPassword) {
+        PREFERENCES.put("db_sessionUsername", sessionUserName);
+        PREFERENCES.put("db_sessionPassword", sessionPassword);
     }
 
-    void clearUsername() {
-        preferences.remove("db_username");
+    static void clearUsername() {
+        PREFERENCES.remove("db_username");
     }
 
-    void clearPassword() {
-        preferences.remove("db_password");
+    static void clearPassword() {
+        PREFERENCES.remove("db_password");
     }
 
 //    public void clearSessionCredentials() {
-//        preferences.remove("db_sessionUsername");
-//        preferences.remove("db_sessionPassword");
+//        PREFERENCES.remove("db_sessionUsername");
+//        PREFERENCES.remove("db_sessionPassword");
 //    }
 //
 //    public void clearAutoLogin() {
-//        preferences.remove("db_autoLogin");
+//        PREFERENCES.remove("db_autoLogin");
 //    }
 //
 //    public void clearSaveCredentials() {
-//        preferences.remove("db_saveCredentials");
+//        PREFERENCES.remove("db_saveCredentials");
 //    }
 
-    void setAutoLogin(boolean autoLogin) {
-        preferences.put("db_autoLogin", String.valueOf(autoLogin));
+    static void setAutoLogin(boolean autoLogin) {
+        PREFERENCES.put("db_autoLogin", String.valueOf(autoLogin));
     }
 
-    void setSaveCredentials() { preferences.put("db_saveCredentials",
+    static void setSaveCredentials() { PREFERENCES.put("db_saveCredentials",
             String.valueOf(true)); }
 
-    public String getUsername() {
-        return preferences.get("db_username", null);
+    public static String getUsername() {
+        return PREFERENCES.get("db_username", null);
     }
 
-    public String getPassword() {
-        return preferences.get("db_password", null);
+    public static String getPassword() {
+        return PREFERENCES.get("db_password", null);
     }
 
-    public String getSessionUsername() {
-        return preferences.get("db_sessionUsername", null);
+    public static String getSessionUsername() {
+        return PREFERENCES.get("db_sessionUsername", null);
     }
 
-    public String getSessionPassword() {
-        return preferences.get("db_sessionPassword", null);
+    public static String getSessionPassword() {
+        return PREFERENCES.get("db_sessionPassword", null);
     }
 
-    public String getAutoLogin() {
-        return preferences.get("db_autoLogin", null);
+    public static String getAutoLogin() {
+        return PREFERENCES.get("db_autoLogin", null);
     }
 
-    String getSaveCredentials() {
-        return preferences.get("db_saveCredentials", null);
+    static String getSaveCredentials() {
+        return PREFERENCES.get("db_saveCredentials", null);
     }
 
     public static String getUserSchema() {
-        String userName = preferences.get("db_sessionUsername", null);
-        String password = preferences.get("db_sessionPassword", null);
+        String userName = PREFERENCES.get("db_sessionUsername", null);
+        String password = PREFERENCES.get("db_sessionPassword", null);
         return SQLAdmin.getUserSchema(userName, password);
     }
 

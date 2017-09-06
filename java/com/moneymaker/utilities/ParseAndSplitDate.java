@@ -141,7 +141,7 @@ public class ParseAndSplitDate {
                     break;
             }
         }
-        cal = DateUtility.setCalDate(cal, formattedYear, formattedMonth - 1, formattedDay);
+        DateUtility.setCalDate(cal, formattedYear, formattedMonth - 1, formattedDay);
         return cal;
     }
 
@@ -182,7 +182,7 @@ public class ParseAndSplitDate {
             }
 
         }
-        cal = DateUtility.setCalDate(cal, Calendar.getInstance().get(Calendar.YEAR),formattedMonth, formattedDay);
+        DateUtility.setCalDate(cal, Calendar.getInstance().get(Calendar.YEAR),formattedMonth, formattedDay);
         return cal;
     }
 

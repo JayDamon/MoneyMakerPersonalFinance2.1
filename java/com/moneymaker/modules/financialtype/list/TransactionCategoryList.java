@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Map;
  */
 public class TransactionCategoryList {
 
-    private static HashMap<String, String> allTransactionCateogories = new HashMap<>();
+    private static final HashMap<String, String> ALL_TRANSACTION_CATEGORIES = new HashMap<>();
     private static TransactionCategoryList instance = null;
     private boolean listActive = false;
 
@@ -44,10 +43,10 @@ public class TransactionCategoryList {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareCreateStatement(conn);
-                ResultSet rs = stmt.executeQuery();
-            ) {
+                ResultSet rs = stmt.executeQuery()
+        ) {
             while (rs.next()) {
-                allTransactionCateogories.put(
+                ALL_TRANSACTION_CATEGORIES.put(
                         rs.getString("trancat_name"),
                         rs.getString("bud_name"));
             }
@@ -64,7 +63,7 @@ public class TransactionCategoryList {
     }
     public ObservableList<String> getTransactionCategories() {
         ObservableList<String> list = FXCollections.observableArrayList();
-        for (Object o : allTransactionCateogories.entrySet()) {
+        for (Object o : ALL_TRANSACTION_CATEGORIES.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             list.add(pair.getKey().toString());
         }
@@ -73,7 +72,7 @@ public class TransactionCategoryList {
 
     public ObservableList<String> getTransactionCategories(String budgetName) {
         ObservableList<String> list = FXCollections.observableArrayList();
-        for (Object o : allTransactionCateogories.entrySet()) {
+        for (Object o : ALL_TRANSACTION_CATEGORIES.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             if (pair.getValue().equals(budgetName)) {
                 list.add(pair.getKey().toString());

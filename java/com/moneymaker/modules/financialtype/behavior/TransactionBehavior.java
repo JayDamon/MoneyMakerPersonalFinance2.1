@@ -45,7 +45,7 @@ public class TransactionBehavior extends FinancialTypeBehavior<Transaction> {
         }
 
         try (
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
             stmt.setString(1, UsernameData.getUserSchema());
             stmt.setInt(2, this.bean.getID());
@@ -72,8 +72,8 @@ public class TransactionBehavior extends FinancialTypeBehavior<Transaction> {
 
             try (
                     PreparedStatement stmt = prepareAddStatement(conn);
-                    ResultSet rs = stmt.executeQuery();
-                    ){
+                    ResultSet rs = stmt.executeQuery()
+            ){
                 if (rs.next()) {
                     this.bean.setId(rs.getInt("ID"));
                     this.bean.setTimeStamp(DateUtility.getCalDateFromSQL(rs.getDate("TimeStampAdded")));

@@ -1,6 +1,5 @@
 package com.moneymaker.modules.financialtype;
 
-import com.moneymaker.modules.financialtype.Bean;
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.utilities.FormatDollarAmount;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,9 +20,9 @@ public class AccountBean extends Bean {
     private final SimpleBooleanProperty inCashFlow = new SimpleBooleanProperty(false);
     private BigDecimal bdStartingBalance, bdCurrentBalance;
 
-    public AccountBean(FinanceType type, String classification, int id, String name, String accountType,
-                       BigDecimal startingBalance, BigDecimal currentBalance,
-                   boolean isPrimaryAccount, boolean inCashFlow) {
+    AccountBean(FinanceType type, String classification, int id, String name, String accountType,
+                BigDecimal startingBalance, BigDecimal currentBalance,
+                boolean isPrimaryAccount, boolean inCashFlow) {
         super(type);
         setClassification(classification);
         setId(id);
@@ -35,8 +34,8 @@ public class AccountBean extends Bean {
         setInCashFlow(inCashFlow);
     }
 
-    public AccountBean(FinanceType type, String name, String accountType,
-                       BigDecimal startingBalance, boolean isPrimaryAccount, boolean inCashFlow) {
+    AccountBean(FinanceType type, String name, String accountType,
+                BigDecimal startingBalance, boolean isPrimaryAccount, boolean inCashFlow) {
         super(type);
         setName(name);
         setType(accountType);

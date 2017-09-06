@@ -177,7 +177,7 @@ public class AccountList extends FinancialTypeList<Account> {
         return list;
     }
 
-    public Account getItem(String name) {
+    private Account getItem(String name) {
         for (Account a : getList()) {
             if (a.getName().equals(name)) {
                 return a;

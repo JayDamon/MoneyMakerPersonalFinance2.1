@@ -27,12 +27,12 @@ import java.util.ResourceBundle;
 public class TransactionCategoryController implements Initializable {
 
     @FXML
-    private VBox vboxTransactionCategory;
+    private VBox vBoxTransactionCategory;
 
     @FXML
     private TableView<Transaction> tblUncategorizedTransactions;
 
-    private TransactionList tList = TransactionList.getInstance();
+    private final TransactionList tList = TransactionList.getInstance();
 
     @FXML
     Button btnFinish;
@@ -45,7 +45,7 @@ public class TransactionCategoryController implements Initializable {
     public void addUncategorizedTransactions(String budgetName) {
         ObservableList<Transaction> data = tblUncategorizedTransactions.getItems();
         data.clear();
-        data.addAll(tList.getUncateogrizedTransactions(budgetName));
+        data.addAll(tList.getUncategorizedTransactions(budgetName));
 
         setTableDragBehavior();
 
@@ -79,7 +79,7 @@ public class TransactionCategoryController implements Initializable {
 
             addLabelDragBehavior(newLabel);
 
-            vboxTransactionCategory.getChildren().add(newLabel);
+            vBoxTransactionCategory.getChildren().add(newLabel);
         }
     }
 

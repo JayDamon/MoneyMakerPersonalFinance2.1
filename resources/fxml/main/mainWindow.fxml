@@ -31,7 +31,7 @@
                         <Insets/>
                     </opaqueInsets>
                     <GridPane.margin>
-                        <Insets right="0.0"/>
+                        <Insets/>
                     </GridPane.margin>
                     <Label fx:id="userInfoLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="25.0"
                            prefWidth="202.0" style="-fx-background-color: white; -fx-alignment: BASELINE_RIGHT;"
@@ -65,10 +65,10 @@
                     <Button id="buttonGoals" maxWidth="1.7976931348623157E308" onAction="#displayGoals"
                             text="Goals" wrapText="True"/>
                 </VBox>
-                <VBox fx:id="vboxTransactions">
+                <VBox fx:id="vBoxTransactions">
                     <Button id="buttonTransactions" maxWidth="1.7976931348623157E308"
                             onAction="#displayTransactions" text="Transactions" wrapText="True"/>
-                    <VBox fx:id="vboxTransactionOptions"/>
+                    <VBox fx:id="vBoxTransactionOptions"/>
                 </VBox>
                 <VBox>
                     <Button id="buttonTrends" maxWidth="1.7976931348623157E308" onAction="#displayTrends"

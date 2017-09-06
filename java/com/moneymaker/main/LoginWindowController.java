@@ -40,7 +40,7 @@ public class LoginWindowController implements Initializable {
     @FXML
     private Label invalidField;
 
-    private UsernameData usernameData = new UsernameData();
+    private final UsernameData USERNAME_DATA = new UsernameData();
 
     @FXML
     private Button testUser;
@@ -59,9 +59,9 @@ public class LoginWindowController implements Initializable {
             }
         });
 
-        if(usernameData.getSaveCredentials() != null || usernameData.getUsername() != null) {
+        if(UsernameData.getSaveCredentials() != null || UsernameData.getUsername() != null) {
             checkBoxSaveCredentials.setSelected(true);
-            textFieldUsername.setText(usernameData.getUsername());
+            textFieldUsername.setText(UsernameData.getUsername());
         }
         primaryPane.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -75,17 +75,17 @@ public class LoginWindowController implements Initializable {
     private void testUserLogin() {
         boolean userExists = SQLAdmin.userExists("testuser", "testuser");
         if (userExists) {
-            usernameData.clearUsername();
-            usernameData.clearPassword();
-            usernameData.setAutoLogin(false);
-            usernameData.setSessionCredentials("testuser","testuser");
+            UsernameData.clearUsername();
+            UsernameData.clearPassword();
+            UsernameData.setAutoLogin(false);
+            UsernameData.setSessionCredentials("testuser","testuser");
             exitWindow();
             openMainWindow("testuser");
         }
     }
 
     @FXML
-    public void loginAction() {
+    private void loginAction() {
         if (passwordFieldLogin.getText().isEmpty() || textFieldUsername.getText().isEmpty()) {
             if (passwordFieldLogin.getText() == null || passwordFieldLogin.getText().isEmpty()) {
                 passwordFieldLogin.setStyle("-fx-control-inner-background: red");
@@ -101,21 +101,21 @@ public class LoginWindowController implements Initializable {
 
             if (userExists) {
                 if (checkBoxSaveCredentials.isSelected()) {
-                    usernameData.setUsername(userName);
-                    usernameData.setSaveCredentials();
-                    usernameData.clearPassword();
+                    UsernameData.setUsername(userName);
+                    UsernameData.setSaveCredentials();
+                    UsernameData.clearPassword();
                 } else {
-                    usernameData.clearUsername();
-                    usernameData.clearPassword();
+                    UsernameData.clearUsername();
+                    UsernameData.clearPassword();
                 }
 
                 if (checkBoxAutoLogin.isSelected()) {
-                    usernameData.setAutoLogin(true);
-                    usernameData.setUsername(userName);
-                    usernameData.setPassword(password);
+                    UsernameData.setAutoLogin(true);
+                    UsernameData.setUsername(userName);
+                    UsernameData.setPassword(password);
                 }
 
-                usernameData.setSessionCredentials(userName, password);
+                UsernameData.setSessionCredentials(userName, password);
 
                 exitWindow();
 

@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 public class CashFlowController extends FinancialTypeController<CashFlow> {
 
     @FXML
-    ListView<String> listViewMonths;
+    private ListView<String> listViewMonths;
     @FXML
-    ListView<Integer> listViewYears;
+    private ListView<Integer> listViewYears;
 
     public CashFlowController() {
         super("", "");
@@ -57,9 +57,8 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
         lists.add(RecurringTransactionList.getInstance().activateList());
 
         for (FinancialTypeList f : lists) {
-            f.getList().addListener((ListChangeListener) c -> {
-                updateVisibleCashFlow();
-            });
+            //noinspection unchecked
+            f.getList().addListener((ListChangeListener) c -> updateVisibleCashFlow());
         }
     }
 
@@ -73,7 +72,7 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
         int selectedYearInt = listViewYears.getSelectionModel().getSelectedItem();
         if (selectedMonthInt != -1 && selectedYearInt != -1) {
             Calendar selectedDate = DateUtility.getCalBeginningOfDay();
-            selectedDate.set(selectedYearInt, selectedMonthInt, 1);
+            DateUtility.setCalDate(selectedDate, selectedYearInt, selectedMonthInt, 1);
             showCashFlow(selectedDate);
         }
     }
@@ -93,7 +92,8 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
     //Get balance on last day of previous time period (ptp)
         Calendar ptpDate = DateUtility.getCalBeginningOfDay();
 
-        ptpDate.set(
+        DateUtility.setCalDate(
+                ptpDate,
                 displayDate.get(Calendar.YEAR),
                 displayDate.get(Calendar.MONTH) - 1,
                 displayDate.getActualMaximum(Calendar.DAY_OF_MONTH));
@@ -115,10 +115,11 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
             Calendar endDate = DateUtility.getCalBeginningOfDay();
             int lastDayOfMonth = cashFlowDate.getActualMaximum(Calendar.DAY_OF_MONTH);  //Get last day of month
 
-            endDate.set(
+            //Set end date as last day of month
+            DateUtility.setCalDate(endDate,
                     cashFlowDate.get(Calendar.YEAR),
                     cashFlowDate.get(Calendar.MONTH)-1,
-                    lastDayOfMonth);  //Set end date as last day of month
+                    lastDayOfMonth);
 
             if (beforeToday) {
                 switch (currentTracker) {
@@ -141,7 +142,8 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
                         cohActual = cohActual.add(c.getBdActual());
                         break;
                 }
-            } else if (!beforeToday) {
+            } else //noinspection ConstantConditions
+                if (!beforeToday) {
                 if (cohCurrent.compareTo(BigDecimal.ZERO) == 0) {
                     cohCurrent = cohActual.add(c.getBdProjected());
                     cohActual = BigDecimal.ZERO;

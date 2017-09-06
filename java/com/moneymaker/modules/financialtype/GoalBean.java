@@ -3,7 +3,6 @@ package com.moneymaker.modules.financialtype;
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.utilities.DateUtility;
 import com.moneymaker.utilities.FormatDollarAmount;
-import com.moneymaker.utilities.TransactionType;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -25,9 +24,9 @@ public abstract class GoalBean extends Bean {
     private Calendar calStartDate, calEndDate;
     private BigDecimal bdActualAmount, bdAmount;
 
-    public GoalBean(FinanceType t, int id, String name, int priority, String type,
-                    String account, Calendar startDate, Calendar endDate,
-                    BigDecimal amount, BigDecimal actualAmount) {
+    GoalBean(FinanceType t, int id, String name, int priority, String type,
+             String account, Calendar startDate, Calendar endDate,
+             BigDecimal amount, BigDecimal actualAmount) {
         super(t);
         setId(id);
         setName(name);
@@ -40,8 +39,8 @@ public abstract class GoalBean extends Bean {
         setActualAmount(actualAmount);
     }
 
-    public GoalBean(FinanceType t, String name, BigDecimal amount, int priority,
-                    String type, String account, Calendar startDate, Calendar endDate) {
+    GoalBean(FinanceType t, String name, BigDecimal amount, int priority,
+             String type, String account, Calendar startDate, Calendar endDate) {
         super(t);
         setName(name);
         setAmount(amount);

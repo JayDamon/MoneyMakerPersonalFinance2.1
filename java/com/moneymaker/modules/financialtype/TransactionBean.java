@@ -1,9 +1,9 @@
 package com.moneymaker.modules.financialtype;
 
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
+import com.moneymaker.utilities.FormatDollarAmount;
 import com.moneymaker.utilities.TransactionType;
 import com.moneymaker.utilities.DateUtility;
-import com.moneymaker.utilities.FormatDollarAmount;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.math.BigDecimal;
@@ -27,9 +27,9 @@ abstract class TransactionBean extends Bean {
     private TransactionType transactionType;
     private Calendar calTimeStamp;
 
-    public TransactionBean(FinanceType type, int id, String account, String budget, String category,
-                           String recurring, Calendar date, String description,
-                           BigDecimal amount, Calendar timeStamp) {
+    TransactionBean(FinanceType type, int id, String account, String budget, String category,
+                    String recurring, Calendar date, String description,
+                    BigDecimal amount, Calendar timeStamp) {
         super(type);
         setId(id);
         setAccount(account);
@@ -42,9 +42,9 @@ abstract class TransactionBean extends Bean {
         setTimeStamp(timeStamp);
     }
 
-    public TransactionBean(FinanceType type, String account, String budget,
-                           String category, Calendar date, String description,
-                           BigDecimal amount) {
+    TransactionBean(FinanceType type, String account, String budget,
+                    String category, Calendar date, String description,
+                    BigDecimal amount) {
         super(type);
         setAccount(account);
         setBudget(budget);
@@ -151,8 +151,8 @@ abstract class TransactionBean extends Bean {
         return amount.get();
     }
 
-    private void setAmountDollarFormat(BigDecimal tAmnt) {
-        amountProperty().set(FormatDollarAmount.FormatAsDollarWithParenthesis(tAmnt));
+    private void setAmountDollarFormat(BigDecimal amount) {
+        amountProperty().set(FormatDollarAmount.FormatAsDollarWithParenthesis(amount));
     }
 
     public Calendar getTimeStamp() {

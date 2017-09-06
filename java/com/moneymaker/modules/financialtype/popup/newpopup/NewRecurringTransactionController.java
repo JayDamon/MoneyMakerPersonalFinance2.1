@@ -55,10 +55,12 @@ public class NewRecurringTransactionController extends NewPopupController<Recurr
         cmbBudget.getItems().addAll(BudgetList.getInstance().getActiveBudgets());
 
         cmbFrequency.getItems().clear();
-        cmbFrequency.getItems().addAll(SQLMethods.listFrequency());
+        ArrayList<String> freqList = SQLMethods.listFrequency();
+        if (freqList != null) cmbFrequency.getItems().addAll(freqList);
 
         cmbOccurrence.getItems().clear();
-        cmbOccurrence.getItems().addAll(SQLMethods.listOccurrence());
+        ArrayList<String> occList = SQLMethods.listOccurrence();
+        if (occList != null) cmbOccurrence.getItems().addAll(occList);
 
         cmbType.getItems().clear();
         cmbType.getItems().addAll(SQLMethods.listTranType());

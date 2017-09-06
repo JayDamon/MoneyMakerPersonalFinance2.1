@@ -77,8 +77,8 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
         ObservableList<CashFlow> list = FXCollections.observableArrayList();
         try (
                 PreparedStatement stmt = prepareStatement(conn, selectedDate, recurringTransactions);
-                ResultSet rs = stmt.executeQuery();
-                ) {
+                ResultSet rs = stmt.executeQuery()
+        ) {
                 if (recurringTransactions) {
                     list = getRecurringTransactionItem(rs, selectedDate);
                 } else {
@@ -133,7 +133,7 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
             if (frequencyDays == 30 || frequencyDays == 60 || frequencyDays == 90 || frequencyDays == 180 ||
                     frequencyDays == 270 || frequencyDays == 365) {
                 Calendar newStartDate = new GregorianCalendar(yearOfFirstOccurrence, monthOfFirstOccurrence, 1);
-                endDate.set(yearOfFirstOccurrence, monthOfFirstOccurrence, 1);
+                DateUtility.setCalDate(endDate, yearOfFirstOccurrence, monthOfFirstOccurrence, 1);
                 actualStartDate = (Calendar)endDate.clone();
                 endDate.set(Calendar.DAY_OF_MONTH, newStartDate.getActualMaximum(Calendar.DAY_OF_MONTH));
             }

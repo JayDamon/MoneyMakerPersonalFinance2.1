@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
  */
 public class NewUserController implements Initializable {
 
-    private String whiteFormat = "-fx-control-inner-background: white";
-    private String redFormat = "-fx-control-inner-background: red";
+    private final String WHITE_FORMAT = "-fx-control-inner-background: white";
+    private final String RED_FORMAT = "-fx-control-inner-background: red";
     @FXML
     private CheckBox checkBoxSaveCredentials, checkBoxAutoLogin;
 
@@ -46,7 +46,7 @@ public class NewUserController implements Initializable {
                 }
             }
             if (!newValue.isEmpty()) {
-                textFieldUserName.setStyle(whiteFormat);
+                textFieldUserName.setStyle(WHITE_FORMAT);
             }
         });
 
@@ -66,25 +66,25 @@ public class NewUserController implements Initializable {
                 }
             }
             if (!newValue.isEmpty()) {
-                textFieldPassword.setStyle(whiteFormat);
+                textFieldPassword.setStyle(WHITE_FORMAT);
             }
         });
 
         textFieldFirstName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
-                textFieldFirstName.setStyle(whiteFormat);
+                textFieldFirstName.setStyle(WHITE_FORMAT);
             }
         });
 
         textFieldLastName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
-                textFieldLastName.setStyle(whiteFormat);
+                textFieldLastName.setStyle(WHITE_FORMAT);
             }
         });
 
         textFieldEmail.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
-                textFieldEmail.setStyle(whiteFormat);
+                textFieldEmail.setStyle(WHITE_FORMAT);
             }
         });
 
@@ -94,16 +94,14 @@ public class NewUserController implements Initializable {
                 String password = textFieldPassword.getText();
                 if (newValue.equals(password)) {
                     passwordMatch.setText("");
-                    textFieldPasswordConfirmation.setStyle(whiteFormat);
+                    textFieldPasswordConfirmation.setStyle(WHITE_FORMAT);
                 } else {
                     passwordMatch.setText("Passwords do not match!");
-                    textFieldPasswordConfirmation.setStyle(redFormat);
+                    textFieldPasswordConfirmation.setStyle(RED_FORMAT);
                 }
             }
         });
     }
-
-    private UsernameData usernameData = new UsernameData();
 
     @FXML
     private Label passwordMatch, usernameMatch;
@@ -131,22 +129,22 @@ public class NewUserController implements Initializable {
 
             passwordMatch.setText("You must fill in all fields");
             if (usernameInput.isEmpty()) {
-                textFieldUserName.setStyle(redFormat);
+                textFieldUserName.setStyle(RED_FORMAT);
             }
             if (firstNameInput.isEmpty()) {
-                textFieldFirstName.setStyle(redFormat);
+                textFieldFirstName.setStyle(RED_FORMAT);
             }
             if (lastNameInput.isEmpty()) {
-                textFieldLastName.setStyle(redFormat);
+                textFieldLastName.setStyle(RED_FORMAT);
             }
             if (userEmailInput.isEmpty()) {
-                textFieldEmail.setStyle(redFormat);
+                textFieldEmail.setStyle(RED_FORMAT);
             }
             if (userPasswordInput.isEmpty()) {
-                textFieldPassword.setStyle(redFormat);
+                textFieldPassword.setStyle(RED_FORMAT);
             }
             if (userPasswordConfirmationInput.isEmpty()) {
-                textFieldPasswordConfirmation.setStyle(redFormat);
+                textFieldPasswordConfirmation.setStyle(RED_FORMAT);
             }
         } else {
 
@@ -155,26 +153,26 @@ public class NewUserController implements Initializable {
             } else {
                 if (SQLAdmin.userExists(usernameInput)) {
                     usernameMatch.setText("This username is taken.  Please select another.");
-                    textFieldUserName.setStyle(redFormat);
+                    textFieldUserName.setStyle(RED_FORMAT);
                 } else {
                     usernameMatch.setText("");
 
                     if (checkBoxAutoLogin.isSelected()) {
-                        usernameData.setAutoLogin(true);
-                        usernameData.setUsername(usernameInput);
-                        usernameData.setUsername(userPasswordInput);
+                        UsernameData.setAutoLogin(true);
+                        UsernameData.setUsername(usernameInput);
+                        UsernameData.setUsername(userPasswordInput);
                     }
 
                     if (checkBoxSaveCredentials.isSelected()) {
-                        usernameData.setSaveCredentials();
-                        usernameData.setUsername(usernameInput);
-                        usernameData.clearPassword();
+                        UsernameData.setSaveCredentials();
+                        UsernameData.setUsername(usernameInput);
+                        UsernameData.clearPassword();
                     } else {
-                        usernameData.clearUsername();
-                        usernameData.clearPassword();
+                        UsernameData.clearUsername();
+                        UsernameData.clearPassword();
                     }
 
-                    usernameData.setSessionCredentials(usernameInput, userPasswordInput);
+                    UsernameData.setSessionCredentials(usernameInput, userPasswordInput);
                     String userSchema = usernameInput + userPasswordInput;
                     SQLAdmin.createNewUser(usernameInput, userPasswordInput, firstNameInput, lastNameInput, userEmailInput, userSchema);
                     ((Node) (event.getSource())).getScene().getWindow().hide();

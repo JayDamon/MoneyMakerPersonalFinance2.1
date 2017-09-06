@@ -60,10 +60,12 @@ public class UpdateRecurringTransactionController extends UpdatePopupController<
         cmbBudget.getItems().addAll(BudgetList.getInstance().getActiveBudgets());
 
         cmbFrequency.getItems().clear();
-        cmbFrequency.getItems().addAll(SQLMethods.listFrequency());
+        ArrayList<String> freqList = SQLMethods.listFrequency();
+        if (freqList != null) cmbFrequency.getItems().addAll(freqList);
 
         cmbOccurrence.getItems().clear();
-        cmbOccurrence.getItems().addAll(SQLMethods.listOccurrence());
+        ArrayList<String> occList = SQLMethods.listOccurrence();
+        if (occList != null) cmbOccurrence.getItems().addAll(occList);
 
         cmbType.getItems().clear();
         cmbType.getItems().addAll(SQLMethods.listTranType());
@@ -108,7 +110,7 @@ public class UpdateRecurringTransactionController extends UpdatePopupController<
         r.getBehavior().update();
     }
 
-    public void setDatePickerValues() {
+    private void setDatePickerValues() {
         Calendar endDate = itemToUpdate.getCalEndDate();
         if(endDate != null) {
             int selectedEndYear = endDate.get(Calendar.YEAR);

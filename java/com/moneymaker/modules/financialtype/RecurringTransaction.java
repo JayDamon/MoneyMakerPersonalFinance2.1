@@ -13,12 +13,12 @@ import java.util.Calendar;
 public class RecurringTransaction extends RecurringTransactionBean {
 
     public RecurringTransaction(int id, String name, String account, String budget, String frequency, String occurrence, TransactionType type, Calendar startDate, Calendar endDate, BigDecimal amount) {
-        super(FinanceType.RECURRINGTRANSACTION, id, name, account, budget, frequency, occurrence, type, startDate, endDate, amount);
+        super(FinanceType.RECURRING_TRANSACTION, id, name, account, budget, frequency, occurrence, type, startDate, endDate, amount);
         setBehavior(new RecurringTransactionBehavior(this));
     }
 
     public RecurringTransaction(String name, String account, String budget, String frequency, String occurrence, TransactionType type, Calendar startDate, Calendar endDate, BigDecimal amount) {
-        super(FinanceType.RECURRINGTRANSACTION, name, account, budget, frequency, occurrence, type, startDate, endDate, amount);
+        super(FinanceType.RECURRING_TRANSACTION, name, account, budget, frequency, occurrence, type, startDate, endDate, amount);
         setBehavior(new RecurringTransactionBehavior(this));
     }
 }

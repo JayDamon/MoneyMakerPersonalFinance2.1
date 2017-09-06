@@ -4,22 +4,14 @@ import com.moneymaker.modules.financialtype.Account;
 import com.moneymaker.modules.financialtype.list.AccountList;
 import com.moneymaker.modules.financialtype.list.AccountTypeList;
 import com.moneymaker.modules.financialtype.popup.NewPopupController;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 /**
- * Created for MoneyMaker by jaynd on 2/22/2016.
+ * Created for MoneyMaker by Jay Damon on 2/22/2016.
  */
 public class NewAccountController extends NewPopupController<AccountList> {
 

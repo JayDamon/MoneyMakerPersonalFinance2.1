@@ -7,10 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManagerUser {
-    private static UsernameData usernameData = new UsernameData();
     private static ConnectionManagerUser instance = null;
-    private static final String USERNAME = usernameData.getSessionUsername();
-    private static final String PASSWORD = usernameData.getSessionPassword();
+    private static final String USERNAME = UsernameData.getSessionUsername();
+    private static final String PASSWORD = UsernameData.getSessionPassword();
     private static final String CONN_STRING =
             "jdbc:mysql://localhost/" + UsernameData.getUserSchema();
 

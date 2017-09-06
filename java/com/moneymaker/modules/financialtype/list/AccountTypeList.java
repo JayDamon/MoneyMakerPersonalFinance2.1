@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by Jay Damon on 8/24/2017.
  */
 public class AccountTypeList {
-    private static ArrayList<String> goalTypes = new ArrayList<>();
+    private static final ArrayList<String> GOAL_TYPES = new ArrayList<>();
     private boolean listActive = false;
     private static AccountTypeList instance = null;
 
@@ -39,10 +39,10 @@ public class AccountTypeList {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareCreateStatement(conn);
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery()
         ) {
             while (rs.next()) {
-                goalTypes.add(rs.getString("acctype_name"));
+                GOAL_TYPES.add(rs.getString("acctype_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,6 +57,6 @@ public class AccountTypeList {
     }
 
     public ArrayList<String> getList() {
-        return goalTypes;
+        return GOAL_TYPES;
     }
 }

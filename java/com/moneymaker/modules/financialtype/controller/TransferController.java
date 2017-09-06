@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -80,14 +79,14 @@ public class TransferController extends FinancialTypeController<Transfer> {
             event.consume();
             Stage getStage = (Stage)buttonYes.getScene().getWindow();
             getStage.close();
-            launchPopupWindow(new NewTransferController(), this.updateFXMLPath);
+            launchPopupWindow(new NewTransferController(), this.UPDATE_FXML_PATH);
         });
 
         buttonNo.setOnAction(event -> {
             event.consume();
             Stage getStage = (Stage)buttonNo.getScene().getWindow();
             getStage.close();
-            launchPopupWindow(new NewTransferEmptyTransactionController(), this.newFXMLPath);
+            launchPopupWindow(new NewTransferEmptyTransactionController(), this.NEW_FXML_PATH);
         });
 
         stage.setScene(new Scene(gridPane, 390,80));

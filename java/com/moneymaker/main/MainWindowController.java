@@ -64,10 +64,10 @@ public class MainWindowController implements Initializable {
     AnchorPane mainPane = new AnchorPane();
 
     @FXML
-    private VBox vboxTransactionOptions, vboxTransactions;
+    private VBox vBoxTransactionOptions, vBoxTransactions;
 
     @FXML
-    public AnchorPane homePane, transactionTablePane, transferTablePane, recurringTransactionTablePane, accountTablePane,
+    private AnchorPane homePane, transactionTablePane, transferTablePane, recurringTransactionTablePane, accountTablePane,
             budgetTablePane, goalsTablePane, cashFlowTablePane;
 
     @FXML
@@ -251,7 +251,7 @@ public class MainWindowController implements Initializable {
         for (String s : buttons) {
             Button newButton = new Button(s);
             VBox newVBox = new VBox();
-            vboxTransactionOptions.getChildren().add(newVBox);
+            vBoxTransactionOptions.getChildren().add(newVBox);
             newButton.setText("- " + s);
             newButton.setStyle("-fx-font-size: 18.0;");
             newButton.setMaxWidth(1.7976931348623157E308);
@@ -340,8 +340,8 @@ public class MainWindowController implements Initializable {
 
         }
 
-        vboxTransactionOptions.setPadding(new Insets(0,0,0,20));
-        vboxTransactions.setStyle("-fx-background-color: #E1EDF8;");
+        vBoxTransactionOptions.setPadding(new Insets(0,0,0,20));
+        vBoxTransactions.setStyle("-fx-background-color: #E1EDF8;");
     }
 
     private void showTransactions() {
@@ -371,8 +371,8 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private void removeTransactionButtons() {
-        vboxTransactionOptions.getChildren().removeAll(vboxTransactionOptions.getChildren());
-        vboxTransactions.setStyle("-fx-background-color: white;");
+        vBoxTransactionOptions.getChildren().removeAll(vBoxTransactionOptions.getChildren());
+        vBoxTransactions.setStyle("-fx-background-color: white;");
     }
 
     private void hideAllPanes() {

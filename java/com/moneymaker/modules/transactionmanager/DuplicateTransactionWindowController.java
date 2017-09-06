@@ -16,7 +16,8 @@ import javafx.scene.layout.VBox;
  */
 public class DuplicateTransactionWindowController {
 
-    @FXML public VBox vboxDuplicateTransaction;
+    @FXML
+    private VBox vBoxDuplicateTransaction;
 
     private boolean addTransaction;
 
@@ -24,7 +25,7 @@ public class DuplicateTransactionWindowController {
     public void listDuplicateTransactions(ObservableList<Transaction> transactions) {
 
         Double labelWidth = 127.5;
-        Double hboxWidth = 510d;
+        Double hBoxWidth = 510d;
         Double compHeight = 57d;
 //        Double vBoxHeight = 0d;
 
@@ -36,7 +37,7 @@ public class DuplicateTransactionWindowController {
             Label newLabel3 = new Label();
             Label newLabel4 = new Label();
 
-            newHBox.setPrefSize(hboxWidth, compHeight);
+            newHBox.setPrefSize(hBoxWidth, compHeight);
             newLabel1.setPrefSize(labelWidth, compHeight);
             newLabel2.setPrefSize(labelWidth, compHeight);
             newLabel3.setPrefSize(labelWidth, compHeight);
@@ -47,7 +48,7 @@ public class DuplicateTransactionWindowController {
             newLabel3.setText(tran.getTransactionAmount());
             newLabel4.setText(DateUtility.getCalendarDisplayDate(tran.getTimeStamp()));
 
-            vboxDuplicateTransaction.getChildren().add(newHBox);
+            vBoxDuplicateTransaction.getChildren().add(newHBox);
             newHBox.getChildren().addAll(newLabel1, newLabel2, newLabel3, newLabel4);
 
             newHBox.addEventHandler(

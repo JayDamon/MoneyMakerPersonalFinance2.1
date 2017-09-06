@@ -21,7 +21,7 @@ public class BudgetGraph {
         return budget.get();
     }
 
-    public void setBudget(String budget) {
+    private void setBudget(String budget) {
         this.budget.set(budget);
     }
 

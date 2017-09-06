@@ -3,7 +3,6 @@ package com.moneymaker.modules.financialtype;
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.utilities.DateUtility;
 import com.moneymaker.utilities.FormatDollarAmount;
-import com.moneymaker.utilities.TransactionType;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -24,9 +23,9 @@ public class TransferBean extends Bean {
     private Calendar calDate;
     private BigDecimal bdAmount;
 
-    public TransferBean(FinanceType type, int id, Calendar date, String transferType, String fromAccount,
-                        String toAccount, BigDecimal amount, int fromTransactionID,
-                        int toTransactionID) {
+    TransferBean(FinanceType type, int id, Calendar date, String transferType, String fromAccount,
+                 String toAccount, BigDecimal amount, int fromTransactionID,
+                 int toTransactionID) {
         super(type);
         setId(id);
         setDate(date);
@@ -38,8 +37,8 @@ public class TransferBean extends Bean {
         setToTransactionID(toTransactionID);
     }
 
-    public TransferBean(FinanceType type, Calendar date, String transferType, String fromAccount, String toAccount, BigDecimal amount,
-                        int fromTransactionID, int toTransactionID) {
+    TransferBean(FinanceType type, Calendar date, String transferType, String fromAccount, String toAccount, BigDecimal amount,
+                 int fromTransactionID, int toTransactionID) {
         super(type);
         setDate(date);
         setTransferType(transferType);

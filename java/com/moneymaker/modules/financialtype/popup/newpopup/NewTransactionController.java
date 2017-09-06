@@ -5,7 +5,6 @@ import com.moneymaker.modules.financialtype.list.AccountList;
 import com.moneymaker.modules.financialtype.list.BudgetList;
 import com.moneymaker.modules.financialtype.list.TransactionList;
 import com.moneymaker.modules.financialtype.popup.NewPopupController;
-import com.moneymaker.utilities.TransactionType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +26,7 @@ public class NewTransactionController extends NewPopupController<TransactionList
     @FXML
     private ComboBox<String> cmbAccount, cmbBudget;
 
-    public int transferType = 0;
+    private final int transferType = 0;
 
     @FXML
     private DatePicker transactionDatePicker;
@@ -65,15 +64,6 @@ public class NewTransactionController extends NewPopupController<TransactionList
         Calendar date = datePickerToCalendar(transactionDatePicker);
         String description = transactionDescriptionField.getText();
         BigDecimal amount = new BigDecimal(transactionAmountField.getText());
-        TransactionType type = TransactionType.EXPENSE;
-
-        if (budget.equals(TransactionType.INCOME.toString())) {
-            type = TransactionType.INCOME;
-        }
-
-        if (transferType == -1) {
-            amount = amount.multiply(BigDecimal.valueOf(-1));
-        }
 
         Transaction t = new Transaction(account, budget, "", date, description, amount);
         t.getBehavior().addToDB();

@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 public class RequiredFieldList {
 
-    private ArrayList<Control> requiredFieldList;
-    private final String whiteBackgroundStyle = "-fx-control-inner-background: white";
-    private String labelWhiteBackgroundStyle = "-fx-background-color: white";
+    private final ArrayList<Control> requiredFieldList;
+    private static final String FX_CONTROL_INNER_BACKGROUND_WHITE = "-fx-control-inner-background: white";
+    private static final String FX_BACKGROUND_COLOR_WHITE = "-fx-background-color: white";
 
     public RequiredFieldList(ArrayList<Control> controls) {
         this.requiredFieldList = controls;
@@ -42,7 +42,7 @@ public class RequiredFieldList {
     private void setValueListener(DatePicker d) {
         d.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(oldValue) && d.getValue() != null) {
-                d.setStyle(whiteBackgroundStyle);
+                d.setStyle(FX_CONTROL_INNER_BACKGROUND_WHITE);
             }
         });
     }
@@ -50,7 +50,7 @@ public class RequiredFieldList {
     private void seValueListener(TextField t) {
         t.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(oldValue) && !t.getText().isEmpty()) {
-                t.setStyle(whiteBackgroundStyle);
+                t.setStyle(FX_CONTROL_INNER_BACKGROUND_WHITE);
             }
         });
     }
@@ -58,7 +58,7 @@ public class RequiredFieldList {
     private void setValueListener(ComboBox<Object> c) {
         c.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (c.getItems().contains(newValue)) {
-                c.setStyle(whiteBackgroundStyle);
+                c.setStyle(FX_CONTROL_INNER_BACKGROUND_WHITE);
             }
         });
     }
@@ -66,7 +66,7 @@ public class RequiredFieldList {
     private void setValueListener(Label l) {
         l.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(oldValue) && !l.getText().equals("")) {
-                l.setStyle(labelWhiteBackgroundStyle);
+                l.setStyle(FX_BACKGROUND_COLOR_WHITE);
             }
         });
     }

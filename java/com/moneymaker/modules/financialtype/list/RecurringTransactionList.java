@@ -34,7 +34,7 @@ public class RecurringTransactionList extends FinancialTypeList<RecurringTransac
     @Override
     public RecurringTransactionList activateList() {
         if (!listActive) {
-            this.setType(FinanceType.RECURRINGTRANSACTION);
+            this.setType(FinanceType.RECURRING_TRANSACTION);
             super.activateList();
             listActive = true;
         }

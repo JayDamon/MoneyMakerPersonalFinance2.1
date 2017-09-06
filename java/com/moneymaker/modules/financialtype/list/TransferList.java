@@ -1,12 +1,10 @@
 package com.moneymaker.modules.financialtype.list;
 
-import com.moneymaker.modules.financialtype.Goal;
 import com.moneymaker.modules.financialtype.Transfer;
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.utilities.DateUtility;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;

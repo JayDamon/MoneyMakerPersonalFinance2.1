@@ -10,10 +10,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Bean {
     private FinancialTypeBehavior behavior;
-    private SimpleIntegerProperty id = new SimpleIntegerProperty(0);
-    private FinanceType type;
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
+    private final FinanceType type;
 
-    protected Bean(FinanceType type) {
+    Bean(FinanceType type) {
         this.type = type;
     }
 
@@ -25,7 +25,7 @@ public abstract class Bean {
         idProperty().set(id);
     }
 
-    protected void setBehavior(FinancialTypeBehavior t) {
+    void setBehavior(FinancialTypeBehavior t) {
         this.behavior = t;
     }
 

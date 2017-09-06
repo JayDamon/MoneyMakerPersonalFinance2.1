@@ -53,10 +53,10 @@ public class UpdateTransactionController extends UpdatePopupController<Transacti
         cmbBudget.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue) {
                 if (cmbBudget.getSelectionModel().getSelectedIndex() != -1) {
-                    cmbBudget.setStyle(whiteBackgroundStyle);
+                    cmbBudget.setStyle(FX_CONTROL_INNER_BACKGROUND_WHITE);
 
                     String item = cmbBudget.getSelectionModel().getSelectedItem();
-                    additemsToCombo(item);
+                    addItemsToCombo(item);
                 }
             }
         }));
@@ -141,10 +141,10 @@ public class UpdateTransactionController extends UpdatePopupController<Transacti
 
     private void fillCategoryCombo() {
         String b = itemToUpdate.getBudget();
-        additemsToCombo(b);
+        addItemsToCombo(b);
     }
 
-    private void additemsToCombo(String item) {
+    private void addItemsToCombo(String item) {
         if (item.equals("Goal")) {
             cmbCategory.getItems().clear();
             cmbCategory.getItems().addAll(GoalList.getInstance().activateList().getGoalNameList());

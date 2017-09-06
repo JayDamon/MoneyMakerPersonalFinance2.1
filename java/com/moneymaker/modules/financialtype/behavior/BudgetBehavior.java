@@ -19,8 +19,8 @@ public class BudgetBehavior extends FinancialTypeBehavior<Budget> {
     public void update() {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
-                PreparedStatement stmt =  prepareUpdateStatement(conn);
-                ) {
+                PreparedStatement stmt =  prepareUpdateStatement(conn)
+        ) {
             stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class BudgetBehavior extends FinancialTypeBehavior<Budget> {
     private void activateBudget(Connection conn) {
         final String sql = "CALL moneymakerprocs.activateBudget(?,?)";
         try (
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
             stmt.setString(1, UsernameData.getUserSchema());
             stmt.setString(2, this.bean.getName());
@@ -66,7 +66,7 @@ public class BudgetBehavior extends FinancialTypeBehavior<Budget> {
     private void addBudget(Connection conn) {
         try (
                 PreparedStatement stmt = getAddPreparedStatement(conn);
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery()
         ) {
             if (rs.next()) {
                 this.bean.setId(rs.getInt("LAST_INSERT_ID()"));
@@ -97,7 +97,7 @@ public class BudgetBehavior extends FinancialTypeBehavior<Budget> {
     private void resetGenericBudget() {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
-            PreparedStatement stmt = createBudGenPreparedStatement(conn);
+            PreparedStatement stmt = createBudGenPreparedStatement(conn)
         ) {
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -113,7 +113,7 @@ public class BudgetBehavior extends FinancialTypeBehavior<Budget> {
         return stmt;
     }
 
-    private PreparedStatement getIsGenericStatment(Connection conn) throws SQLException{
+    private PreparedStatement getIsGenericStatement(Connection conn) throws SQLException{
         final String sql = "CALL moneymakerprocs.getBudgetGeneric(?,?);";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, UsernameData.getUserSchema());

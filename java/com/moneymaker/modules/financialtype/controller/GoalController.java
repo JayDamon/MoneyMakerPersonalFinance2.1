@@ -2,8 +2,6 @@ package com.moneymaker.modules.financialtype.controller;
 
 import com.moneymaker.modules.financialtype.Goal;
 import com.moneymaker.modules.financialtype.list.GoalList;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.AnchorPane;
 

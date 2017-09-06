@@ -20,7 +20,7 @@ public class BudgetList extends FinancialTypeList<Budget> {
 
     private static BudgetList instance = null;
 
-    private ObservableList<Budget> allBudgets = FXCollections.observableArrayList();
+    private final ObservableList<Budget> allBudgets = FXCollections.observableArrayList();
 
     private boolean listActive = false;
 

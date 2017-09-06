@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -38,7 +37,7 @@ import java.util.*;
 public class ImportTransactionsWindowController implements Initializable {
 
     @FXML
-    public TextField txtTransactionDate;
+    private TextField txtTransactionDate;
 
     @FXML
     private TextArea txtAreaFilePath;
@@ -69,11 +68,7 @@ public class ImportTransactionsWindowController implements Initializable {
         c.add(txtDebit);
         c.add(cmbAccount);
         requiredFieldList = new RequiredFieldList(c);
-        try {
-            fillAccountsCombo();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        fillAccountsCombo();
 
         txtAreaFilePath.setOnDragOver(event -> {
             Dragboard db = event.getDragboard();
@@ -209,7 +204,7 @@ public class ImportTransactionsWindowController implements Initializable {
     }
 
     @FXML
-    private void fillAccountsCombo() throws SQLException {
+    private void fillAccountsCombo() {
         ObservableList<String> accList = FXCollections.observableList(AccountList.getInstance().activateList().getAccountNameList());
         cmbAccount.getItems().clear();
         cmbAccount.setItems(accList);

@@ -7,9 +7,6 @@ import com.moneymaker.modules.financialtype.list.AccountList;
 import com.moneymaker.modules.financialtype.list.TransactionCategoryList;
 import com.moneymaker.modules.financialtype.list.TransactionList;
 import com.moneymaker.modules.financialtype.list.TransferList;
-import com.moneymaker.modules.financialtype.popup.NewPopupController;
-import com.moneymaker.utilities.AutoCompleteComboBoxListener;
-import com.moneymaker.utilities.DateUtility;
 import com.moneymaker.utilities.gui.PopupController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,13 +15,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
 import java.math.BigDecimal;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.ResourceBundle;
 
 /**
  * Created for MoneyMaker by Jay Damon on 10/22/2016.
@@ -32,15 +26,17 @@ import java.util.ResourceBundle;
 public class NewTransferEmptyTransactionController extends PopupController implements Initializable {
 
     @FXML
-    private ComboBox<String> comboBoxFromAccount, comboBoxToAccount,comboBoxTransferType;
+    private final ComboBox<String> comboBoxFromAccount = new ComboBox<>();
+    private final ComboBox<String> comboBoxToAccount = new ComboBox<>();
+    private final ComboBox<String> comboBoxTransferType = new ComboBox<>();
 
     @FXML
-    private DatePicker datePickerTransferDate;
+    private final DatePicker datePickerTransferDate = new DatePicker();
 
     @FXML
-    private TextField textFieldTransferAmount;
+    private final TextField textFieldTransferAmount = new TextField();
 
-    private TransferList list = TransferList.getInstance().activateList();
+    private final TransferList list = TransferList.getInstance().activateList();
 
     @Override
     protected ArrayList<ComboBox> comboBoxesForAutoComplete() {
@@ -54,9 +50,7 @@ public class NewTransferEmptyTransactionController extends PopupController imple
     @Override
     public void fillPrePopulatedControls() {
         fillComboBoxes();
-        buttonExit.setOnAction(event -> {
-            exitWindow();
-        });
+        buttonExit.setOnAction(event -> exitWindow());
     }
 
     @Override

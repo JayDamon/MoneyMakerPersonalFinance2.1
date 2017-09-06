@@ -7,10 +7,10 @@ public enum TransactionType {
     INCOME,
     EXPENSE,
     TRANSACTION,
-    ACTUALRECURRING,
+    ACTUAL_RECURRING,
     TRANSFER,
-    INCOMETRANSFER,
-    EXPENSETRANSFER;
+    INCOME_TRANSFER,
+    EXPENSE_TRANSFER;
 
     public static TransactionType getType(String type) {
         switch (type.toLowerCase()) {
@@ -21,13 +21,13 @@ public enum TransactionType {
             case "transaction":
                 return TRANSACTION;
             case "actualrecurring":
-                return ACTUALRECURRING;
+                return ACTUAL_RECURRING;
             case "transfer":
                 return TRANSFER;
             case "incometransfer":
-                return INCOMETRANSFER;
+                return INCOME_TRANSFER;
             case "expensetransfer":
-                return EXPENSETRANSFER;
+                return EXPENSE_TRANSFER;
             default:
                 return null;
         }

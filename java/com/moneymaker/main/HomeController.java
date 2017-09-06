@@ -154,9 +154,9 @@ public class HomeController implements Initializable {
 
         int selectedMonth = calendarSelectedMonth.get(Calendar.MONTH);
 
-        calendarStartDate = DateUtility.setCalDate(calendarStartDate, selectedYear, selectedMonth, 1);
+        DateUtility.setCalDate(calendarStartDate, selectedYear, selectedMonth, 1);
         int lastDayOfMonth = calendarStartDate.getActualMaximum(Calendar.DAY_OF_MONTH);
-        calendarEndDate = DateUtility.setCalDate(calendarEndDate, selectedYear, selectedMonth, lastDayOfMonth);
+        DateUtility.setCalDate(calendarEndDate, selectedYear, selectedMonth, lastDayOfMonth);
         SimpleDateFormat formatter = new SimpleDateFormat(DateUtility.SQL_INPUT_DATE);
         String stringStartDate = formatter.format(calendarStartDate.getTime());
         String stringEndDate = formatter.format(calendarEndDate.getTime());

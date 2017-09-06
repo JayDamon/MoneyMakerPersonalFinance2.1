@@ -21,12 +21,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created for MoneyMaker by jaynd on 3/27/2016.
+ * Created for MoneyMaker by Jay Damon on 3/27/2016.
  */
 public class TransactionController extends FinancialTypeController<Transaction> {
 
     @FXML
-    private Button buttonImport;
+    private final Button buttonImport = new Button();
 
     public TransactionController(String newFXMLPath, String updateFXMLPath) {
         super(newFXMLPath, updateFXMLPath);
@@ -36,9 +36,7 @@ public class TransactionController extends FinancialTypeController<Transaction> 
     @Override
     public void initialize(URL url, ResourceBundle rs) {
         super.initialize(url, rs);
-        buttonImport.setOnAction(e -> {
-            importTransactions();
-        });
+        buttonImport.setOnAction(e -> importTransactions());
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.modules.financialtype.list.TransactionList;
 import com.moneymaker.utilities.DateUtility;
 import com.moneymaker.utilities.FormatDollarAmount;
-import com.moneymaker.utilities.TransactionType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -28,8 +27,8 @@ public class BudgetBean extends Bean {
     private Calendar calStartDate, calEndDate;
     private BigDecimal bdAmount;
 
-    public BudgetBean(FinanceType type, int id, String name, Calendar startDate, Calendar endDate,
-                      String frequency, BigDecimal amount, boolean bGeneric, boolean bInUse) {
+    BudgetBean(FinanceType type, int id, String name, Calendar startDate, Calendar endDate,
+               String frequency, BigDecimal amount, boolean bGeneric, boolean bInUse) {
         super(type);
         setId(id);
         setName(name);
@@ -42,7 +41,7 @@ public class BudgetBean extends Bean {
         setInUse(bInUse);
     }
 
-    public BudgetBean(FinanceType t, String name) {
+    BudgetBean(FinanceType t, String name) {
         super(t);
         setName(name);
     }
@@ -142,7 +141,7 @@ public class BudgetBean extends Bean {
 
     public void setUncategorizedTransactions() {
         ObservableList<Transaction> l = TransactionList.getInstance().activateList().
-                getUncateogrizedTransactions(this.getName());
+                getUncategorizedTransactions(this.getName());
         int n = 0;
         if (l != null) {
             n = l.size();

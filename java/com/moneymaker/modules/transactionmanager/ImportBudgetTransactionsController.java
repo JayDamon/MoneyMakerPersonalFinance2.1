@@ -41,11 +41,11 @@ public class ImportBudgetTransactionsController implements Initializable {
 
     @FXML TableView<Transaction> tblSpending, tblIncome;
 
-    @FXML AnchorPane anchSpending, anchIncome;
+    @FXML AnchorPane anchorSpending, anchorIncome;
 
     @FXML Button btnExit;
 
-    @FXML VBox vBoxCategory, vboxBudgets;
+    @FXML VBox vBoxCategory, vBoxBudgets;
 
     @FXML ToggleButton togSpending, togIncome;
 
@@ -199,15 +199,15 @@ public class ImportBudgetTransactionsController implements Initializable {
 
     @FXML
     private void togIncome() {
-        anchIncome.setVisible(true);
-        anchSpending.setVisible(false);
+        anchorIncome.setVisible(true);
+        anchorSpending.setVisible(false);
         lblTransactionType.setText("Income");
     }
 
     @FXML
     private void togSpending() {
-        anchIncome.setVisible(false);
-        anchSpending.setVisible(true);
+        anchorIncome.setVisible(false);
+        anchorSpending.setVisible(true);
         lblTransactionType.setText("Spending");
     }
 
@@ -282,10 +282,10 @@ public class ImportBudgetTransactionsController implements Initializable {
             budgetLabel.setStyle("-fx-border-color: BLACK;");
             budgetLabel.setPrefSize(243, 71);
             budgetLabel.setMinHeight(30);
-            vboxBudgets.getChildren().add(budgetLabel);
+            vBoxBudgets.getChildren().add(budgetLabel);
 
             budgetLabel.setOnMouseClicked(event -> {
-                for (Node child : vboxBudgets.getChildren()) {
+                for (Node child : vBoxBudgets.getChildren()) {
                     child.setStyle("-fx-border-color: BLACK;");
                 }
                 addCategoryLabels(budgetLabel);

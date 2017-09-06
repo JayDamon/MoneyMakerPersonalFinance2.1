@@ -19,13 +19,13 @@ public abstract class FinancialTypeList<T extends Bean> {
     ObservableList<T> list = FXCollections.observableArrayList();
     private FinanceType type;
 
-    public FinancialTypeList activateList() {
+    FinancialTypeList activateList() {
         this.list = getListFromDB();
         sortList();
         return this;
     }
 
-    protected void setType(FinanceType t) {
+    void setType(FinanceType t) {
         this.type = t;
     }
 
@@ -40,7 +40,7 @@ public abstract class FinancialTypeList<T extends Bean> {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = createPreparedStatement(conn);
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery()
         ) {
             rs.beforeFirst();
             while (rs.next()) {

@@ -7,7 +7,6 @@ import com.moneymaker.utilities.TransactionType;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Calendar;
 
 /**
@@ -28,11 +27,11 @@ public class RecurringTransactionBean extends Bean {
     private BigDecimal bdAmount;
     private Calendar calStartDate, calEndDate;
 
-    public RecurringTransactionBean(FinanceType type, int id, String name,
-                                    String account, String budget,
-                                    String frequency, String occurrence,
-                                    TransactionType recurringTransactionType, Calendar startDate,
-                                    Calendar endDate, BigDecimal amount) {
+    RecurringTransactionBean(FinanceType type, int id, String name,
+                             String account, String budget,
+                             String frequency, String occurrence,
+                             TransactionType recurringTransactionType, Calendar startDate,
+                             Calendar endDate, BigDecimal amount) {
         super(type);
         setId(id);
         setName(name);
@@ -46,11 +45,11 @@ public class RecurringTransactionBean extends Bean {
         setAmount(amount);
     }
 
-    public RecurringTransactionBean(FinanceType type, String name,
-                                    String account, String budget,
-                                    String frequency, String occurrence,
-                                    TransactionType recurringTransactionType, Calendar startDate,
-                                    Calendar endDate, BigDecimal amount) {
+    RecurringTransactionBean(FinanceType type, String name,
+                             String account, String budget,
+                             String frequency, String occurrence,
+                             TransactionType recurringTransactionType, Calendar startDate,
+                             Calendar endDate, BigDecimal amount) {
         super(type);
         setName(name);
         setAccount(account);

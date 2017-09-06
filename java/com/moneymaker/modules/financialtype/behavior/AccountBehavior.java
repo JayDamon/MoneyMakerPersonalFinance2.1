@@ -20,7 +20,7 @@ public class AccountBehavior extends FinancialTypeBehavior<Account> {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
 
         try (
-            PreparedStatement stmt = prepareUpsateStatement(conn);
+            PreparedStatement stmt = prepareUpdateStatement(conn)
         ){
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -30,7 +30,7 @@ public class AccountBehavior extends FinancialTypeBehavior<Account> {
         }
     }
 
-    private PreparedStatement prepareUpsateStatement(Connection conn) throws SQLException {
+    private PreparedStatement prepareUpdateStatement(Connection conn) throws SQLException {
         final String sql = "CALL moneymakerprocs.updateAccount(?,?,?,?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, UsernameData.getUserSchema());
@@ -48,7 +48,7 @@ public class AccountBehavior extends FinancialTypeBehavior<Account> {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareAddStatement(conn);
-                ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery()
         ) {
             if (rs.next()) {
                 this.bean.setId(rs.getInt("LAST_INSERT_ID()"));

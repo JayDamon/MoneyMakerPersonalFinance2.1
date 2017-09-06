@@ -54,8 +54,8 @@ public class RecurringTransactionBehavior extends FinancialTypeBehavior<Recurrin
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
                 PreparedStatement stmt = prepareAddStatement(conn);
-                ResultSet rs = stmt.executeQuery();
-                ) {
+                ResultSet rs = stmt.executeQuery()
+        ) {
             if (rs.next()) {
                 this.bean.setId(rs.getInt("LAST_INSERT_ID()"));
             }

@@ -8,7 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -68,7 +67,7 @@ public class TransactionList extends FinancialTypeList<Transaction> {
     protected void sortList() {
         ObservableList<Transaction> l = this.getList();
         l.sort(new Comparator<Transaction>() {
-            DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
+            final DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
             @Override
             public int compare(Transaction t1, Transaction t2) {
                 try {
@@ -81,7 +80,7 @@ public class TransactionList extends FinancialTypeList<Transaction> {
         });
     }
 
-    public ObservableList<Transaction> getUncateogrizedTransactions(String budget) {
+    public ObservableList<Transaction> getUncategorizedTransactions(String budget) {
         ObservableList<Transaction> list = FXCollections.observableArrayList();
         for (Transaction t : this.getList()) {
             if ((t.getCategory() == null  || t.getCategory().equals("")) && t.getBudget().equals(budget)) {
@@ -109,9 +108,9 @@ public class TransactionList extends FinancialTypeList<Transaction> {
         }
     }
 
-    protected void sortList(ObservableList<Transaction> t) {
+    private void sortList(ObservableList<Transaction> t) {
         t.sort(new Comparator<Transaction>() {
-            DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
+            final DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
             @Override
             public int compare(Transaction t1, Transaction t2) {
                 try {

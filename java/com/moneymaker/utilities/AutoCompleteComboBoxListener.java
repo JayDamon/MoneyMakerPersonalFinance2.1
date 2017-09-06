@@ -14,8 +14,8 @@ import javafx.scene.input.KeyEvent;
  */
 public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
 
-    private ComboBox comboBox;
-    private StringBuilder sb;
+    private final ComboBox comboBox;
+    private final StringBuilder sb;
     private int lastLength;
 
     public AutoCompleteComboBoxListener(ComboBox comboBox) {
@@ -80,10 +80,10 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
 
     /*
      * selectClosestResultBasedOnTextFieldValue() - selects the item and scrolls to it when
-     * the updateitem is shown.
+     * the updateItem is shown.
      *
      * parameters:
-     *  affect - true if combobox is clicked to show updateitem so text and caret position will be readjusted.
+     *  affect - true if combobox is clicked to show updateItem so text and caret position will be readjusted.
      *  inFocus - true if combobox has focus. If not, programmatically press enter key to add new entry to list.
      *
      */

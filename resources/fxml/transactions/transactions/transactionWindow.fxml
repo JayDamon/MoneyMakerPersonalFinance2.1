@@ -6,74 +6,74 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<GridPane id="transactionAnchorPane" fx:id="primaryPane" maxHeight="-Infinity" prefWidth="896.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-          <padding>
-            <Insets bottom="10" left="10" top="10" />
-         </padding>
-   <children>
-            <Label id="lblTest" style="-fx-font: NORMAL 25 Tahoma;" text="Transactions" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-           <HBox minWidth="100" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-              <children>
-                  <Button fx:id="buttonNew" maxWidth="1.7976931348623157E308" text="New" wrapText="True" />
-                  <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" text="Delete" wrapText="True" />
-                  <Button fx:id="buttonUpdate" maxWidth="1.7976931348623157E308" text="Update" wrapText="True" />
-                  <Button fx:id="buttonImport" maxWidth="1.7976931348623157E308" text="Import" wrapText="True" />
-              </children>
-           </HBox>
-                 <TableView fx:id="primaryTable" editable="true" prefHeight="2000.0" prefWidth="3000.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                     <columns>
-                         <TableColumn id="transactionAccount" fx:id="colAccount" prefWidth="180.0" text="Account">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="account" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="transactionCategory" fx:id="colCategory" prefWidth="140.0" text="Category">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="category" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="transactionBudget" fx:id="colBudget" prefWidth="155.0" text="Budget">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="budget" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="recurring" fx:id="colRecurring" prefWidth="180.0" text="Recurring">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="recurring" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="date" fx:id="colDate" prefWidth="97.0" text="Date">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="date" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="transactionDescription" fx:id="colDescription" prefWidth="320.0" text="Description">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="description" />
-                             </cellValueFactory>
-                         </TableColumn>
-                         <TableColumn id="amount" fx:id="colAmount" minWidth="0.0" prefWidth="86.0" text="Amount">
-                             <cellValueFactory>
-                                 <PropertyValueFactory property="amount" />
-                             </cellValueFactory>
-                         </TableColumn>
-                     </columns>
-                     <items>
-                           <FXCollections fx:factory="observableArrayList">
-                        </FXCollections>
-                     </items>
-                 </TableView>
-   </children>
-          <stylesheets>
-              <URL value="@../../../css/CenterPanelButtonStyle.css" />
-          </stylesheets>
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+<GridPane id="transactionAnchorPane" fx:id="primaryPane" maxHeight="-Infinity" prefWidth="896.0"
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10" left="10" top="10"/>
+    </padding>
+    <stylesheets>
+        <URL value="@../../../css/CenterPanelButtonStyle.css"/>
+    </stylesheets>
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
+    <Label id="lblTest" style="-fx-font: NORMAL 25 Tahoma;" text="Transactions" GridPane.columnIndex="0"
+           GridPane.columnSpan="2" GridPane.rowIndex="0"/>
+    <HBox minWidth="100" style="-fx-background-color: white;" GridPane.columnIndex="0" GridPane.columnSpan="2"
+          GridPane.rowIndex="1">
+        <Button fx:id="buttonNew" maxWidth="1.7976931348623157E308" text="New" wrapText="True"/>
+        <Button fx:id="buttonDelete" maxWidth="1.7976931348623157E308" text="Delete" wrapText="True"/>
+        <Button fx:id="buttonUpdate" maxWidth="1.7976931348623157E308" text="Update" wrapText="True"/>
+        <Button fx:id="buttonImport" maxWidth="1.7976931348623157E308" text="Import" wrapText="True"/>
+    </HBox>
+    <TableView fx:id="primaryTable" editable="true" prefHeight="2000.0" prefWidth="3000.0" GridPane.columnIndex="0"
+               GridPane.rowIndex="2">
+        <columns>
+            <TableColumn id="transactionAccount" fx:id="colAccount" prefWidth="180.0" text="Account">
+                <cellValueFactory>
+                    <PropertyValueFactory property="account"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="transactionCategory" fx:id="colCategory" prefWidth="140.0" text="Category">
+                <cellValueFactory>
+                    <PropertyValueFactory property="category"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="transactionBudget" fx:id="colBudget" prefWidth="155.0" text="Budget">
+                <cellValueFactory>
+                    <PropertyValueFactory property="budget"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="recurring" fx:id="colRecurring" prefWidth="180.0" text="Recurring">
+                <cellValueFactory>
+                    <PropertyValueFactory property="recurring"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="date" fx:id="colDate" prefWidth="97.0" text="Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="date"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="transactionDescription" fx:id="colDescription" prefWidth="320.0" text="Description">
+                <cellValueFactory>
+                    <PropertyValueFactory property="description"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn id="amount" fx:id="colAmount" minWidth="0.0" prefWidth="86.0" text="Amount">
+                <cellValueFactory>
+                    <PropertyValueFactory property="amount"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+            </FXCollections>
+        </items>
+    </TableView>
 </GridPane>

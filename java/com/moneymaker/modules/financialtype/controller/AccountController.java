@@ -6,7 +6,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Created for MoneyMaker by jaynd on 3/27/2016.
+ * Created for MoneyMaker by Jay Damon on 3/27/2016.
  */
 public class AccountController extends FinancialTypeController<Account> {
 

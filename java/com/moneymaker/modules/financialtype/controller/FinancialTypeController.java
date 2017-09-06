@@ -28,8 +28,8 @@ import java.util.ResourceBundle;
  */
 public abstract class FinancialTypeController<T extends Bean> implements Initializable {
 
-    String newFXMLPath;
-    String updateFXMLPath;
+    final String NEW_FXML_PATH;
+    final String UPDATE_FXML_PATH;
 
     @FXML
     Pane primaryPane;
@@ -38,7 +38,9 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
     TableView<T> primaryTable;
 
     @FXML
-    private Button buttonNew, buttonDelete, buttonUpdate;
+    private final Button buttonNew = new Button();
+    private final Button buttonDelete = new Button();
+    private final Button buttonUpdate = new Button();
 
     private FinancialTypeList<T> itemList;
 
@@ -50,9 +52,9 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         this.itemList = itemList;
     }
 
-    FinancialTypeController(String newFXMLPath, String updateFXMLPath) {
-        this.newFXMLPath = newFXMLPath;
-        this.updateFXMLPath = updateFXMLPath;
+    FinancialTypeController(String NEW_FXML_PATH, String UPDATE_FXML_PATH) {
+        this.NEW_FXML_PATH = NEW_FXML_PATH;
+        this.UPDATE_FXML_PATH = UPDATE_FXML_PATH;
     }
 
     public void initialize(URL url, ResourceBundle rs) {
@@ -72,7 +74,7 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         addItemsToTable();
     }
 
-    void addItemsToTable() {
+    private void addItemsToTable() {
         ObservableList<T> list = this.getItemList().getList();
         list.addListener((ListChangeListener<T>) c -> {
             while (c.next()) {
@@ -90,9 +92,9 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         primaryTable.getItems().addAll(list);
     }
 
-    protected void createNew() {
-        if (newFXMLPath != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.newFXMLPath));
+    void createNew() {
+        if (NEW_FXML_PATH != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.NEW_FXML_PATH));
             try {
                 AnchorPane newWindow = loader.load();
                 Stage stage = getStage(newWindow, "New Item");
@@ -107,11 +109,11 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         }
     }
 
-    public void update() {
+    private void update() {
         ObservableList<T> financialType = primaryTable.getSelectionModel().getSelectedItems();
         if(financialType.size() == 1) {
             for (T t : financialType) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.updateFXMLPath));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.UPDATE_FXML_PATH));
                 try {
                     AnchorPane newWindow = loader.load();
                     Stage stage = getStage(newWindow, "Update Item");
@@ -125,7 +127,7 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         } else if (financialType.size() == 0 ) {
             launchAlertWindow("No Items Selected", "You must select at least one item");
         } else {
-            launchAlertWindow("Too Many Items Selected", "You can only updateitem one item at a time.");
+            launchAlertWindow("Too Many Items Selected", "You can only update one item at a time.");
         }
     }
 
@@ -146,7 +148,7 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         return stage;
     }
 
-    public void delete() {
+    void delete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete Confirmation");
         alert.setHeaderText("Delete Selected Item(s)");
@@ -156,15 +158,13 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         Optional<ButtonType> result = alert.showAndWait();
         ObservableList<T> financialTypes = primaryTable.getSelectionModel().getSelectedItems();
 
-        if (result.isPresent()) {
-            if (result.get() == ButtonType.OK) {
-                for (T f : financialTypes) {
-                    if (f != null) {
-                        f.getBehavior().delete();
-                    }
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            for (T f : financialTypes) {
+                if (f != null) {
+                    f.getBehavior().delete();
                 }
-                this.itemList.getList().removeAll(financialTypes);
             }
+            this.itemList.getList().removeAll(financialTypes);
         }
     }
 
@@ -195,7 +195,4 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
 
     protected abstract void launchContextMenu(double x, double y);
 
-    public void setNewFXMLPath(String newpath) {
-        this.newFXMLPath = newpath;
-    }
 }

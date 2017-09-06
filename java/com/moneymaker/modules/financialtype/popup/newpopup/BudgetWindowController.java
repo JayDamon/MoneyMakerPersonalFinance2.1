@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
- * Created by jaynd on 6/26/2016.
+ * Created by Jay Damon on 6/26/2016.
  */
 public class BudgetWindowController implements Initializable {
 
@@ -34,7 +34,7 @@ public class BudgetWindowController implements Initializable {
 
     public boolean newUser = false;
 
-    private BudgetList budgetList = BudgetList.getInstance().activateList();
+    private final BudgetList budgetList = BudgetList.getInstance().activateList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,15 +102,9 @@ public class BudgetWindowController implements Initializable {
                     if(event.getTransferMode() == TransferMode.COPY && dragboard.hasString() &&
                             event.getGestureSource() != list) {
                         if (list.equals(listViewBudget)) {
-                            for (String s : listViewInactiveBudget.getSelectionModel().getSelectedItems()) {
-                                activateBudgets(listViewInactiveBudget);
-//                                activateInDB(s);
-                            }
+                            activateBudgets(listViewInactiveBudget);
                         } else if (list.equals(listViewInactiveBudget)) {
-                            for (String s : listViewBudget.getSelectionModel().getSelectedItems()) {
-                                deactivateBudgets(listViewBudget);
-                            }
-//                            deactivateInDB(dragboard.getString());
+                            deactivateBudgets(listViewBudget);
                         }
                         event.setDropCompleted(true);
                     }
@@ -216,7 +210,7 @@ public class BudgetWindowController implements Initializable {
             Scene scene = new Scene(primaryStage);
             stage.setScene(scene);
             MainWindowController mainWindow = loader.getController();
-            mainWindow.setUserName(new UsernameData().getSessionUsername());
+            mainWindow.setUserName(UsernameData.getSessionUsername());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

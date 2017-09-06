@@ -13,8 +13,8 @@ import java.sql.SQLException;
  * Created by Jay Damon on 7/21/2017.
  */
 public abstract class FinancialTypeBehavior<T extends Bean> {
-    private FinanceType type;
-    T bean;
+    private final FinanceType type;
+    final T bean;
 
     FinancialTypeBehavior(T t) {
         this.bean = t;
@@ -25,7 +25,7 @@ public abstract class FinancialTypeBehavior<T extends Bean> {
 
     public abstract boolean addToDB();
 
-    public boolean beanExistsInDB() {
+    boolean beanExistsInDB() {
         if (this.bean.getID() != 0) {
             Connection conn = ConnectionManagerUser.getInstance().getConnection();
             final String sql = "SELECT count(1) RecordExists FROM " + this.type.getTableName() +

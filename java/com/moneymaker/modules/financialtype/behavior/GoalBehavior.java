@@ -2,9 +2,7 @@ package com.moneymaker.modules.financialtype.behavior;
 
 import com.moneymaker.main.UsernameData;
 import com.moneymaker.modules.financialtype.Goal;
-import com.moneymaker.modules.financialtype.list.GoalList;
 import com.moneymaker.utilities.ConnectionManager.ConnectionManagerUser;
-import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,8 +22,8 @@ public class GoalBehavior extends FinancialTypeBehavior<Goal> {
     public void update() {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
-                PreparedStatement stmt = createUpdateStatement(conn);
-                ) {
+                PreparedStatement stmt = createUpdateStatement(conn)
+        ) {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,7 +53,7 @@ public class GoalBehavior extends FinancialTypeBehavior<Goal> {
         Connection conn = ConnectionManagerUser.getInstance().getConnection();
         try (
             PreparedStatement stmt = createAddStatement(conn);
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery()
         ) {
             if (rs.next()) {
                 this.bean.setId(rs.getInt("LAST_INSERT_ID()"));
