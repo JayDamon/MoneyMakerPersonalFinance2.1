@@ -46,4 +46,31 @@ public class LaunchStage {
             return null;
         }
     }
+
+    public static void launchStage(FXMLLoader loader) {
+        try {
+            AnchorPane primaryStage = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Login");
+            Scene scene = new Scene(primaryStage);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Stage getStage(FXMLLoader loader) {
+        try {
+            AnchorPane primaryStage = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Budget");
+            Scene scene = new Scene(primaryStage);
+            stage.setScene(scene);
+            return stage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

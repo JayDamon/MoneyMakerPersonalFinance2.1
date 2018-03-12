@@ -26,10 +26,10 @@ public abstract class PopupController implements Initializable {
     protected Pane primaryPane;
 
     @FXML
-    private final Button buttonConfirm = new Button();
-    public final Button buttonExit = new Button();
+    private Button buttonConfirm = new Button();
+    public Button buttonExit = new Button();
 
-    private RequiredFieldList requiredFieldList;
+    protected RequiredFieldList requiredFieldList;
 
     public void initialize(URL url, ResourceBundle rs) {
         fillPrePopulatedControls();

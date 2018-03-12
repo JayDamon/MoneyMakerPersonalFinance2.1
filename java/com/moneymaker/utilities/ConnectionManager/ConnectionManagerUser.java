@@ -13,7 +13,7 @@ public class ConnectionManagerUser {
     private static final String CONN_STRING =
             "jdbc:mysql://localhost/" + UsernameData.getUserSchema();
 
-    private boolean closeActive = false;
+    private boolean closeActive = true;
 
     private Connection conn = null;
 
@@ -74,6 +74,11 @@ public class ConnectionManagerUser {
 
     public void activateClose() {
         closeActive = true;
+    }
+
+    public void activateAndClose() {
+        activateClose();
+        close();
     }
 
 }

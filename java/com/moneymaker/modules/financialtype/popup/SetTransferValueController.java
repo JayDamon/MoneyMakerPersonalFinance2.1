@@ -1,15 +1,19 @@
 package com.moneymaker.modules.financialtype.popup;
 
 import com.moneymaker.modules.financialtype.Transaction;
+import com.moneymaker.modules.financialtype.Transfer;
 import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.modules.financialtype.list.AccountList;
 import com.moneymaker.modules.financialtype.list.TransactionCategoryList;
 import com.moneymaker.modules.financialtype.list.TransactionList;
+import com.moneymaker.modules.financialtype.list.TransferList;
 import com.moneymaker.modules.financialtype.popup.newpopup.NewTransactionController;
 import com.moneymaker.utilities.gui.PopupController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -18,15 +22,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.event.ChangeListener;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
  * Created for MoneyMaker by Jay Damon on 10/20/2016.
  */
-public abstract class SetTransferValueController extends PopupController {
+public abstract class SetTransferValueController extends PopupController implements Initializable {
 
     @FXML
     private Label labelFromDate, labelFromDescription, labelFromAmount,
@@ -42,7 +49,7 @@ public abstract class SetTransferValueController extends PopupController {
     private TableView<Transaction> tableViewFromAccount, tableViewToAccount;
 
     @FXML
-    private Button buttonNewFromTransaction, buttonNewToTransaction;
+    private Button buttonNewFromTransaction, buttonNewToTransaction, buttonAddNewTransfer;
 
     protected Transaction toTransaction, fromTransaction;
 
@@ -98,7 +105,7 @@ public abstract class SetTransferValueController extends PopupController {
         setTableOnMouseClicked(tableViewToAccount);
         setComboOnValueChange(cmbFromAccount, tableViewFromAccount);
         setComboOnValueChange(cmbToAccount, tableViewToAccount);
-
+        setActionComboTransferType(cmbTransferType);
         final String from = "From";
         final String to = "To";
 
@@ -110,6 +117,19 @@ public abstract class SetTransferValueController extends PopupController {
         addVBoxDragDroppedEvent(to, vBoxToTransaction, tableViewToAccount);
         addVBoxDragExitedEvent(vBoxFromTransaction);
         addVBoxDragExitedEvent(vBoxToTransaction);
+    }
+
+    private void setActionComboTransferType(ComboBox<String> cmb) {
+        cmb.valueProperty().addListener((Observable, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)) {
+                if (cmbFromAccount.getSelectionModel().getSelectedIndex() != -1) {
+                    setTableValues(cmbFromAccount, tableViewFromAccount);
+                }
+                if (cmbToAccount.getSelectionModel().getSelectedIndex() != -1) {
+                    setTableValues(cmbToAccount, tableViewToAccount);
+                }
+            }
+        });
     }
 
     private void addVBoxDragExitedEvent(VBox vb) {
@@ -171,9 +191,39 @@ public abstract class SetTransferValueController extends PopupController {
 
     private void setButtonBehavior() {
         buttonNewFromTransaction.setOnAction(event -> launchNewTransactionWindow(cmbFromAccount, tableViewFromAccount));
-
         buttonNewToTransaction.setOnAction(event -> launchNewTransactionWindow(cmbToAccount, tableViewToAccount));
+        buttonAddNewTransfer.setOnAction(event -> addNewTransfer());
         buttonExit.setOnAction(event -> exitWindow());
+    }
+
+    private void addNewTransfer() {
+        final TransferList list = TransferList.getInstance().activateList();
+        if (requiredFieldList.isComplete()) {
+            addTransfer(list);
+            removeAddedTransactions();
+
+        }
+    }
+
+    private void removeAddedTransactions() {
+        removeFromTransaction();
+        removeToTransactino();
+    }
+
+
+    protected void addTransfer(TransferList list) {
+        Calendar date = this.fromTransaction.getCalendar();
+        String transferType = cmbTransferType.getSelectionModel().getSelectedItem();
+        String fromAccount = cmbTransferType.getSelectionModel().getSelectedItem();
+        String toAccount = cmbTransferType.getSelectionModel().getSelectedItem();
+        BigDecimal amount = fromTransaction.getBigDecimalAmount();
+        int fromID = fromTransaction.getID();
+        int toID = toTransaction.getID();
+        Transfer t = new Transfer(date, transferType, fromAccount, toAccount, amount, fromID, toID);
+        t.getBehavior().addToDB();
+        list.getList().add(t);
+        updateTransaction(transferType, this.fromTransaction);
+        updateTransaction(transferType, this.toTransaction);
     }
 
     private void setTableOnMouseClicked(TableView<Transaction> t) {
@@ -206,11 +256,30 @@ public abstract class SetTransferValueController extends PopupController {
 
     private void setTableValues(ComboBox<String> cmb, TableView<Transaction> table) {
         String val = cmb.getSelectionModel().getSelectedItem();
+        String cat = cmbTransferType.getSelectionModel().getSelectedItem();
         table.getItems().clear();
-        ObservableList<Transaction> t = this.transactionList.getListByAccount(val);
-        if (t != null) {
-            table.setItems(t);
+        ObservableList<Transaction> transactions = this.transactionList.getList(val, cat);
+        if (transactions != null) {
+            table.setItems(getUnusedTransactions(transactions));
         }
+    }
+
+    private static ObservableList<Transaction> getUnusedTransactions(ObservableList<Transaction> transactions) {
+        ObservableList<Transfer> transfers = TransferList.getInstance().getList();
+        ObservableList<Transaction> list = FXCollections.observableArrayList();
+        for (Transaction t : transactions) {
+            boolean transactionNotFound = true;
+            for (Transfer tran : transfers) {
+                if (t.getID() == tran.getFromTransactionID() || t.getID() == tran.getToTransactionID()) {
+                    transactionNotFound = false;
+                    break;
+                }
+            }
+            if (transactionNotFound) {
+                list.add(t);
+            }
+        }
+        return list;
     }
 
     private void addFromTransaction(Transaction t) {
@@ -225,6 +294,22 @@ public abstract class SetTransferValueController extends PopupController {
         labelToDescription.setText(t.getDescription());
         labelToAmount.setText(t.getAmount());
         this.toTransaction = t;
+    }
+
+    private void removeFromTransaction() {
+        labelFromDate.setText("");
+        labelFromDescription.setText("");
+        labelFromAmount.setText("");
+        tableViewFromAccount.getItems().remove(this.fromTransaction);
+        this.fromTransaction = null;
+    }
+
+    private void removeToTransactino() {
+        labelToDate.setText("");
+        labelToDescription.setText("");
+        labelToAmount.setText("");
+        tableViewToAccount.getItems().remove(this.toTransaction);
+        this.toTransaction = null;
     }
 
     protected void updateTransaction(String transferType, Transaction t) {

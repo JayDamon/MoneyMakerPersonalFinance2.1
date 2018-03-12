@@ -4,12 +4,18 @@ import com.moneymaker.modules.financialtype.Transaction;
 import com.moneymaker.modules.financialtype.list.RecurringTransactionList;
 import com.moneymaker.modules.financialtype.list.TransactionList;
 import com.moneymaker.modules.transactionmanager.ImportTransactionsWindowController;
+import com.mysql.cj.api.xdevapi.Column;
+import com.sun.javafx.scene.control.skin.TableHeaderRow;
+import com.sun.javafx.scene.control.skin.TableViewSkin;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 /**
@@ -26,7 +33,7 @@ import java.util.ResourceBundle;
 public class TransactionController extends FinancialTypeController<Transaction> {
 
     @FXML
-    private final Button buttonImport = new Button();
+    private Button buttonImport = new Button();
 
     public TransactionController(String newFXMLPath, String updateFXMLPath) {
         super(newFXMLPath, updateFXMLPath);
@@ -37,6 +44,65 @@ public class TransactionController extends FinancialTypeController<Transaction> 
     public void initialize(URL url, ResourceBundle rs) {
         super.initialize(url, rs);
         buttonImport.setOnAction(e -> importTransactions());
+        primaryTable.setOnMouseClicked(e -> {
+            sortTableView();
+        });
+//        primaryTable.sortPolicyProperty().set(t -> {
+//            ObservableList<TableColumn<Transaction, ?>> sortColumns = primaryTable.getSortOrder();
+////            if (sortColumns.size() == 1 && sortColumns.get(0).getText().equals("Date")) {
+////
+////                primaryTable.getItems().sort(Comparator.comparing(tra -> tra.getCalendar()));
+////            }
+//            ObservableList<Transaction> transactions = TransactionList.getInstance().sortListFromTableViewCriteria(sortColumns);
+//            if (transactions != null) {
+//                System.out.println(transactions.size());
+//                primaryTable.getItems().clear();
+//                primaryTable.getItems().addAll(transactions);
+//            }
+////            return true;
+//            FXCollections.sort(primaryTable.getItems(), Comparator.comparing(tran -> tran.getCalendar()));
+////            primaryTable.getItems().sort(Comparator.comparing(tran -> tran.getCalendar()));
+//            return true;
+//        });
+//        primaryTable.sortPolicyProperty().set(t -> {
+//            Comparator<Transaction> comparator = (r1, r2)
+//                    -> t.getComparator() == null ? 0 //no column sorted: don't change order
+//                    : t.getComparator().compare(r1, r2); //columns are sorted: sort accordingly
+//            FXCollections.sort(primaryTable.getItems(), comparator);
+//            return true;
+//        });
+    }
+
+    private void sortTableView() {
+        ObservableList<TableColumn<Transaction, ?>> columns = primaryTable.getColumns();
+        for (TableColumn<Transaction, ?> c : columns) {
+            TableViewSkin<?> skin = (TableViewSkin)primaryTable.getSkin();
+            ObservableList<Node> list = skin.getChildren();
+            for (Node n : list) {
+                if (n instanceof TableHeaderRow) {
+                    System.out.println(n.getId());
+                }
+            }
+//            c.getGraphic().setOnMouseClicked(e -> {
+//                System.out.println("Clicked");
+//            });
+        }
+//        System.out.println(primaryTable.skinProperty().getName());
+//        System.out.println(primaryTable.lookup("TableHeaderRow"));
+//        primaryTable.setOnMouseClicked(e -> {
+//            if (e.getButton() == MouseButton.SECONDARY &&
+//                e.getSource().getClass().equals(TableView.class)) {
+//                TableView<Transaction> table = (TableView<Transaction>)e.getSource();
+////                System.out.println(table.lookup("TableHeaderRow"));
+////                if (headerRowNotNull) {
+//                if (table.lookup("TableHeaderRow").getClass() == TableHeaderRow.class) {
+//                    System.out.println("Found"); // Triggers all the time
+//                }
+//
+//            }
+//        });
+
+//        primaryTable.skinProperty().addListener();
     }
 
     @Override

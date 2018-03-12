@@ -105,7 +105,7 @@ public class CashFlowController extends FinancialTypeController<CashFlow> {
 
     //Loop through Cash Flow list
         for (CashFlow c: cashFlow.getList()) {
-
+//            System.out.println(c.getCategory());
             Calendar cashFlowDate = (Calendar)c.getCalDate().clone();  //Used to store date of this Cash Flow item
             cashFlowDate.set(Calendar.HOUR_OF_DAY, 0);
         //Compare the Cash Flow date to find out if the Cash Flow Date is before or after today's date

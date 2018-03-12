@@ -1,5 +1,7 @@
 package com.moneymaker.utilities;
 
+import javafx.collections.ObservableList;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +19,9 @@ public class DateUtility {
 
     public static String getCalendarDisplayDate(Calendar calendar) {
         if (calendar != null) {
-            SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yy");
+//            SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yy");
+            SimpleDateFormat format = new SimpleDateFormat("MMM-dd-yy");
+
             return format.format(calendar.getTime());
         } else {
             return "";
@@ -62,6 +66,7 @@ public class DateUtility {
         }
         return convertDate;
     }
+
     public static Calendar getWeekDayStartDate(Calendar startDate, String occurrence) {
         switch (occurrence) {
             case "Monday":

@@ -68,6 +68,7 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
                 getListFromDB(conn, selectedDate, false));
         list.addAll(
                 getListFromDB(conn, selectedDate, true));
+
         ConnectionManagerUser.getInstance().activateClose();
         ConnectionManagerUser.getInstance().close();
         return list;
@@ -103,15 +104,15 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
             int frequencyDays = rs.getInt("Frequency");
             String occurrence = rs.getString("Occurrence");
             int occurrenceType = rs.getInt("Occurrence Type");
-            long numberOfDaysBetweenDates;
+            double numberOfDaysBetweenDates;
             if (startDate != null) {
                 numberOfDaysBetweenDates = ChronoUnit.DAYS.between(startDate.toInstant(), selectedDate.toInstant());
             } else continue;
 
-            double numberOfOccurrencesForFistMonth = Math.floor(numberOfDaysBetweenDates / frequencyDays) + 1;
-            long numberOfDaysForFirstOccurrenceInMonth = (long) numberOfOccurrencesForFistMonth * frequencyDays;
+            double numberOfDaysForFirstOccurrenceInMonth = Math.ceil(numberOfDaysBetweenDates / frequencyDays) * frequencyDays;
+            Calendar o = (Calendar)startDate.clone();
             startDate.add(Calendar.DATE, (int) numberOfDaysForFirstOccurrenceInMonth);
-
+//            System.out.println("Start Date: " + o.getTime() + " " + category + " | " + numberOfDaysForFirstOccurrenceInMonth + " (" + numberOfDaysBetweenDates + " / " + frequencyDays + ") * " + frequencyDays + " | Start Date: " + startDate.getTime());
             list.addAll(addNewCashFlow(selectedDate, account, budget, category, projected, startDate, frequencyDays, occurrence, occurrenceType));
         }
         return list;
@@ -122,7 +123,6 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
         int yearOfFirstOccurrence = startDate.get(Calendar.YEAR);
         Calendar currentStartDate = setStartDate(selectedDate, startDate, occurrence, occurrenceType);
         ObservableList<CashFlow> list = FXCollections.observableArrayList();
-
         while (monthOfFirstOccurrence == selectedDate.get(Calendar.MONTH) && yearOfFirstOccurrence == selectedDate.get(Calendar.YEAR)) {
             Calendar cashFlowDate = (Calendar)currentStartDate.clone();
             Calendar actualStartDate = (Calendar)currentStartDate.clone();
@@ -248,8 +248,10 @@ public class CashFlowList extends FinancialTypeList<CashFlow> {
         final String sql;
         if (recurringTransactions) {
             sql = "CALL moneymakerprocs.viewRecurringTransactionsForCashFlow(?,?)";
+//            System.out.println(sql + " | " + UsernameData.getUserSchema() + " | " + DateUtility.getSQLDate(selectedDate));
         } else {
             sql = "CALL moneymakerprocs.viewMonthlyBudgetRemaining(?,?)";
+//            System.out.println(sql + " | " + UsernameData.getUserSchema() + " | " + DateUtility.getSQLDate(selectedDate));
         }
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, UsernameData.getUserSchema());

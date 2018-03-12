@@ -23,7 +23,7 @@ import java.util.Calendar;
 /**
  * Created for MoneyMaker by Jay Damon on 10/22/2016.
  */
-public class NewTransferEmptyTransactionController extends PopupController implements Initializable {
+public class NewTransferEmptyTransactionController extends PopupController {
 
     @FXML
     private final ComboBox<String> comboBoxFromAccount = new ComboBox<>();

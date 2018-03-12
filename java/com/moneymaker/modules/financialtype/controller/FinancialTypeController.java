@@ -28,8 +28,8 @@ import java.util.ResourceBundle;
  */
 public abstract class FinancialTypeController<T extends Bean> implements Initializable {
 
-    final String NEW_FXML_PATH;
-    final String UPDATE_FXML_PATH;
+    final String newFXMLPath;
+    final String updateFXMLPath;
 
     @FXML
     Pane primaryPane;
@@ -38,9 +38,9 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
     TableView<T> primaryTable;
 
     @FXML
-    private final Button buttonNew = new Button();
-    private final Button buttonDelete = new Button();
-    private final Button buttonUpdate = new Button();
+    public Button buttonNew;
+    public Button buttonDelete;
+    public Button buttonUpdate;
 
     private FinancialTypeList<T> itemList;
 
@@ -52,9 +52,9 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         this.itemList = itemList;
     }
 
-    FinancialTypeController(String NEW_FXML_PATH, String UPDATE_FXML_PATH) {
-        this.NEW_FXML_PATH = NEW_FXML_PATH;
-        this.UPDATE_FXML_PATH = UPDATE_FXML_PATH;
+    FinancialTypeController(String newFXMLPath, String updateFXMLPath) {
+        this.newFXMLPath = newFXMLPath;
+        this.updateFXMLPath = updateFXMLPath;
     }
 
     public void initialize(URL url, ResourceBundle rs) {
@@ -93,8 +93,8 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
     }
 
     void createNew() {
-        if (NEW_FXML_PATH != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.NEW_FXML_PATH));
+        if (newFXMLPath != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.newFXMLPath));
             try {
                 AnchorPane newWindow = loader.load();
                 Stage stage = getStage(newWindow, "New Item");
@@ -113,7 +113,7 @@ public abstract class FinancialTypeController<T extends Bean> implements Initial
         ObservableList<T> financialType = primaryTable.getSelectionModel().getSelectedItems();
         if(financialType.size() == 1) {
             for (T t : financialType) {
-                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.UPDATE_FXML_PATH));
+                FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(this.updateFXMLPath));
                 try {
                     AnchorPane newWindow = loader.load();
                     Stage stage = getStage(newWindow, "Update Item");

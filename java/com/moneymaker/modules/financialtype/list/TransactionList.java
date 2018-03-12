@@ -6,14 +6,13 @@ import com.moneymaker.utilities.DateUtility;
 import com.moneymaker.utilities.TransactionType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jay Damon on 7/18/2017.
@@ -66,18 +65,11 @@ public class TransactionList extends FinancialTypeList<Transaction> {
 
     protected void sortList() {
         ObservableList<Transaction> l = this.getList();
-        l.sort(new Comparator<Transaction>() {
-            final DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
-            @Override
-            public int compare(Transaction t1, Transaction t2) {
-                try {
-                    return f.parse(t1.getDate()).compareTo(f.parse(t2.getDate()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return -1;
-            }
-        });
+        sortList(l);
+    }
+
+    private void sortList(ObservableList<Transaction> t) {
+        t.sort(Comparator.comparing(t2 -> t2.getCalendar()));
     }
 
     public ObservableList<Transaction> getUncategorizedTransactions(String budget) {
@@ -108,25 +100,24 @@ public class TransactionList extends FinancialTypeList<Transaction> {
         }
     }
 
-    private void sortList(ObservableList<Transaction> t) {
-        t.sort(new Comparator<Transaction>() {
-            final DateFormat f = new SimpleDateFormat(DateUtility.CALENDAR_DISPLAY_DATE);
-            @Override
-            public int compare(Transaction t1, Transaction t2) {
-                try {
-                    return f.parse(t1.getDate()).compareTo(f.parse(t2.getDate()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return -1;
+    public ObservableList<Transaction> getList(String account, String category) {
+        ObservableList<Transaction> list = FXCollections.observableArrayList();
+        for (Transaction t : this.getList()) {
+            if (t.getAccount() != null && t.getCategory() != null && t.getAccount().equals(account) && t.getCategory().equals(category)) {
+                list.add(t);
             }
-        });
+        }
+        if (list.size() > 0) {
+            return list;
+        } else {
+            return null;
+        }
     }
 
     public ObservableList<Transaction> getExpenses() {
         ObservableList<Transaction> expenses = FXCollections.observableArrayList();
         for (Transaction t : getList()) {
-            if (t.getTransactionType().equals(TransactionType.EXPENSE)) {
+            if (t.getTransactionType().equals(TransactionType.EXPENSE) || t.getTransactionType().equals(TransactionType.EXPENSE_TRANSFER)) {
                 expenses.add(t);
             }
         }
@@ -137,7 +128,7 @@ public class TransactionList extends FinancialTypeList<Transaction> {
     public ObservableList<Transaction> getIncome() {
         ObservableList<Transaction> income = FXCollections.observableArrayList();
         for (Transaction t : getList()) {
-            if (t.getTransactionType().equals(TransactionType.INCOME)) {
+            if (t.getTransactionType().equals(TransactionType.INCOME) || t.getTransactionType().equals(TransactionType.INCOME_TRANSFER)) {
                 income.add(t);
             }
         }
@@ -148,7 +139,7 @@ public class TransactionList extends FinancialTypeList<Transaction> {
     public ObservableList<Transaction> getTransferExpenses() {
         ObservableList<Transaction> expenses = FXCollections.observableArrayList();
         for (Transaction t : getList()) {
-            if (t.getBudget().equals(FinanceType.TRANSFER.specialBehavior()) && t.getTransactionType().equals(TransactionType.EXPENSE)) {
+            if ((t.getBudget().equals(FinanceType.TRANSFER.specialBehavior()) && t.getTransactionType().equals(TransactionType.EXPENSE)) || t.getTransactionType().equals(TransactionType.EXPENSE_TRANSFER)) {
                 expenses.add(t);
             }
         }
@@ -159,11 +150,22 @@ public class TransactionList extends FinancialTypeList<Transaction> {
     public ObservableList<Transaction> getTransferIncome() {
         ObservableList<Transaction> income = FXCollections.observableArrayList();
         for (Transaction t : getList()) {
-            if (t.getBudget().equals(FinanceType.TRANSFER.specialBehavior()) && t.getTransactionType().equals(TransactionType.INCOME)) {
+            if ((t.getBudget().equals(FinanceType.TRANSFER.specialBehavior()) && t.getTransactionType().equals(TransactionType.INCOME)) || t.getTransactionType().equals(TransactionType.INCOME_TRANSFER)) {
                 income.add(t);
             }
         }
         sortList(income);
         return income;
+    }
+
+    public ObservableList<Transaction> sortListFromTableViewCriteria(ObservableList<TableColumn<Transaction, ?>> criteria) {
+        ObservableList<Transaction> transactions = getList();
+        if (criteria.size() == 1 && criteria.get(0).getText().equals("Date")) {
+            System.out.println(criteria.get(0).getText());
+//            transactions.sort(Comparator.comparing(Transaction::getCalendar).reversed());.
+            transactions.sort(Comparator.comparing((Transaction t) -> t.getCalendar()).reversed());
+            return transactions;
+        }
+        return null;
     }
 }

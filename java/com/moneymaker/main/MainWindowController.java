@@ -34,6 +34,7 @@ package com.moneymaker.main;
 
 import com.moneymaker.modules.financialtype.controller.*;
 import com.moneymaker.utilities.ConnectionManager.ConnectionManagerUser;
+import com.moneymaker.utilities.gui.LaunchStage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -106,8 +107,7 @@ public class MainWindowController implements Initializable {
         addRecurringTransactions();
         addCashFlow();
 
-        conn.activateClose();
-        conn.close();
+        conn.activateAndClose();
     }
 
 
@@ -181,17 +181,9 @@ public class MainWindowController implements Initializable {
     private void logout() {
         Stage mainStage = (Stage)mainPane.getScene().getWindow();
         mainStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main/loginWindow.fxml"));
-        try {
-            AnchorPane primaryStage = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Login");
-            Scene scene = new Scene(primaryStage);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LaunchStage.launchStage(
+                new FXMLLoader(getClass().getClassLoader().getResource("fxml/main/loginWindow.fxml"))
+        );
     }
 
     //These are the button actions for the side panel

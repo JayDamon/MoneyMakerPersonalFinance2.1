@@ -57,7 +57,7 @@
             </TableColumn>
             <TableColumn id="date" fx:id="colDate" prefWidth="97.0" text="Date">
                 <cellValueFactory>
-                    <PropertyValueFactory property="date"/>
+                    <PropertyValueFactory property="calDate"/>
                 </cellValueFactory>
             </TableColumn>
             <TableColumn id="transactionDescription" fx:id="colDescription" prefWidth="320.0" text="Description">

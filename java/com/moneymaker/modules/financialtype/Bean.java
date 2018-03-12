@@ -4,11 +4,13 @@ import com.moneymaker.modules.financialtype.behavior.FinanceType;
 import com.moneymaker.modules.financialtype.behavior.FinancialTypeBehavior;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.beans.Beans;
+
 /**
  * Created by Jay Damon on 7/20/2017.
  */
 
-public abstract class Bean {
+public abstract class Bean extends Beans {
     private FinancialTypeBehavior behavior;
     private final SimpleIntegerProperty id = new SimpleIntegerProperty(0);
     private final FinanceType type;

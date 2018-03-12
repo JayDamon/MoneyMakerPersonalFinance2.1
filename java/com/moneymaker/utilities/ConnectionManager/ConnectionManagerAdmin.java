@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class ConnectionManagerAdmin {
     private static ConnectionManagerAdmin instance = null;
 
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "Heron2128#";
+    private static final String USERNAME = "appadministrator";
+    private static final String PASSWORD = "moneymakeradministrator";
     private static final String CONN_STRING =
             "jdbc:mysql://localhost/";
 

@@ -2,14 +2,11 @@ package com.moneymaker;
 
 import com.moneymaker.main.MainWindowController;
 import com.moneymaker.main.UsernameData;
+import com.moneymaker.utilities.gui.LaunchStage;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class Main extends Application {
 
@@ -28,34 +25,18 @@ public class Main extends Application {
 
     @FXML
     private void openLoginWindow() {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main/loginWindow.fxml"));
-        try {
-            AnchorPane primaryStage = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Login");
-            Scene scene = new Scene(primaryStage);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LaunchStage.launchStage(
+                new FXMLLoader(getClass().getClassLoader().getResource("fxml/main/loginWindow.fxml"))
+        );
     }
 
     @FXML
     private void openMainWindow() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main/mainWindow.fxml"));
-        try {
-            AnchorPane primaryStage = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Budget");
-            Scene scene = new Scene(primaryStage);
-            stage.setScene(scene);
-            MainWindowController mainWindow = loader.getController();
-            mainWindow.setUserName(UsernameData.getUsername());
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = LaunchStage.getStage(loader);
+        MainWindowController mainWindow = loader.getController();
+        mainWindow.setUserName(UsernameData.getUsername());
+        if (stage != null) stage.show();
     }
 
     public static void main(String[] args) {
