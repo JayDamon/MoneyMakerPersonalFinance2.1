@@ -26,7 +26,8 @@ import java.util.ResourceBundle;
 /**
  * Created by Jay Damon on 7/20/2017.
  */
-public abstract class FinancialTypeController<T extends Bean> implements Initializable {
+public abstract class
+FinancialTypeController<T extends Bean> implements Initializable {
 
     final String newFXMLPath;
     final String updateFXMLPath;
